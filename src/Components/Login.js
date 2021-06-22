@@ -1,9 +1,16 @@
-const Login = () => {
-    return (
-        <div>
+class Login extends Component {
+    state = {
+        username: "",
+        password: ""
+    }
 
-        </div>
-    )
+    render(){
+        return (
+            <div>
+
+            </div>
+        )
+    }
 }
 
-export default  Login;
+export default Login;
