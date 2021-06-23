@@ -4,6 +4,7 @@ import Home from "./Containers/Home";
 import Login from "./Components/Login";
 import SignUp from "./Components/SignUp";
 import Product from "./Components/Product";
+import Comment from "./Components/Comment";
 import ProductList from "./Components/ProductList";
 import Navigation from "./Navigation";
 import React, { Component } from "react";
@@ -51,7 +52,8 @@ class App extends Component {
           {this.state.user ? null : <><Route exact path='/login' render={() => <Login setUser={this.setUser}/>}/>
           <Route exact path='/signup' render={() => <SignUp setUser={this.setUser}/>}/></>}
           <Route exact path="/products" render= {() => <ProductList products={this.state.products}/>}/>
-          <Route path="/products/item" render={() => <Product />}/>
+          <Route path="/products/item" render={() => <Product products={this.state.products}/>}/>
+          <Route path="/" render={() => <Product user= {this.state.user} products={this.state.products}/>}/>
         </Router>
       </div>
     );
