@@ -1,16 +1,16 @@
-class Login extends Component {
-    state = {
-        username: "",
-        password: ""
-    }
+// class Login extends Component {
+//     state = {
+//         username: "",
+//         password: ""
+//     }
 
-    render(){
-        return (
-            <div>
+//     render(){
+//         return (
+//             <div>
 
-            </div>
-        )
-    }
-}
+//             </div>
+//         )
+//     }
+// }
 
-export default Login;
+// export default Login;
