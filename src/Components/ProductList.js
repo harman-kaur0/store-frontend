@@ -1,32 +1,23 @@
 import React, { Component } from "react";
+import { withRouter } from "react-router-dom";
 
-export default class ProductList extends Component {
-  state = {
-    products: [],
-  };
-
-  componentDidMount() {
-    fetch("http://localhost:3000/api/v1/products")
-      .then( resp => resp.json())
-      .then((data) => {
-        console.log(data);
-        this.setState({ products: data });
-      });
-  }
+class ProductList extends Component {
+ 
 
   render() {
     return (
       <div>
         <h1>Product List Here!</h1>
-        {this.state.products.map((p) => (
-          <div>
-            <li>{p.name}</li>
-            <li>{p.image}</li>
-            <li>$ {p.price}</li>
-            <li>{p.description}</li>
+        {this.props.products.map((p) => (
+          <div className="products" onClick= {() => console.log(this.props.location.pathname)}>
+            <img src={p.image} alt={p.name} className="productsImg" />
+            <h6>{p.name}</h6>
+            <h4>$ {p.price}</h4>
           </div>
         ))}
       </div>
     );
   }
 }
+
+export default withRouter(ProductList)

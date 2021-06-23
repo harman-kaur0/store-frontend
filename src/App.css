@@ -98,5 +98,21 @@ h5 {
   padding: 2px;
 }
 
+.products {
+  text-align: center;
+  padding: 1rem;
+  width: 25rem;
+  height: 40rem;
+  display: inline-grid;
+  margin: 1rem 2rem;
+  cursor: pointer;
+}
+
+.productsImg {
+  justify-self: center;
+  height: 6rem;
+  width: 150px;
+  height: 200px;
+}
 
 
