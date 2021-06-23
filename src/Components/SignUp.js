@@ -14,7 +14,6 @@ class SignUp extends Component {
         fetch("http://localhost:3000/api/v1/users", {method: "POST", headers: {'Content-Type': 'application/json'}, 
         body: JSON.stringify({email: info.email, password: info.password, name: info.name})})
         .then(resp => resp.json()).then(data => {
-            console.log(data)
             // this.props.setUser(data.user)
             // localStorage.setItem('jwt', data.jwt)
             // this.props.history.goBack();

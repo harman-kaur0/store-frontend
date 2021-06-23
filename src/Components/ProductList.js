@@ -6,15 +6,8 @@ export default class ProductList extends Component {
   };
 
   componentDidMount() {
-    console.log("componentDidMount firing");
-    fetch("http://localhost:3000/api/v1/products", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        // Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-      },
-    })
-      .then((res) => res.json())
+    fetch("http://localhost:3000/api/v1/products")
+      .then( resp => resp.json())
       .then((data) => {
         console.log(data);
         this.setState({ products: data });
@@ -29,10 +22,10 @@ export default class ProductList extends Component {
         <h1>Product List Here!</h1>
         {this.state.products.map((p) => (
           <div>
-            <li>p.name</li>
-            <li>p.image</li>
-            <li>p.price</li>
-            <li>p.description</li>
+            <li>{p.name}</li>
+            <li>{p.image}</li>
+            <li>$ {p.price}</li>
+            <li>{p.description}</li>
           </div>
         ))}
       </div>
