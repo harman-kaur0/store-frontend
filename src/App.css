@@ -1,11 +1,102 @@
 .navbar_margin {
-  margin-top: 35px;
+  margin-top: 60px;
   background: grey;
-  height: 2vh;
 }
 
-.navbar_category {
-  font-weight: bold;
-  font-size: 12px;
+.form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: calc(100% - 40px);
 }
+
+.continue-login {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-self: center;
+  width: 90%;
+}
+
+.form label{
+  margin-right: 140px;
+  font-weight: bolder;
+}
+
+.form input{
+  width: 100%;
+  height: 30px;
+  border: 2px solid black;
+  margin-bottom: 20px;
+}
+
+.form button {
+  width: 40%;
+  align-self: center;
+  background-color: black;
+  color: yellow;
+  font-weight: bold;
+}
+
+.login-container {
+  display: flex;
+  border: 2px solid black;
+  width: 80%;
+  height: 60%;
+  background-color: rgba(255, 255, 0, 0.1);
+}
+
+.login-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 96vh;
+}
+
+.img-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  height: 100%;
+  border-right: 1px solid black;
+}
+
+.img-container img {
+  width: 100%;
+  height: 100%;
+}
+
+.login {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+}
+
+.heading-container {
+  text-align: center;
+  margin-top: 10px;
+  width: 100%;
+  height: 30px;
+}
+
+h5 {
+  color: red;
+  border: 1px solid red;
+  border-radius: 2px;
+  padding: 2px;
+}
+
+
 

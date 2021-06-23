@@ -1,46 +1,35 @@
 import React, { Component } from 'react';
 import {withRouter} from 'react-router-dom'
-class Login extends Component {
+
+class SignUp extends Component {
     state = {
         email: "",
         password: "",
+        confirm: "",
+        name: "",
         error: ""
     }
 
-    handleAuthFetchLogin = (info) => {
-        fetch('http://localhost:3000/api/v1/login', {
-          method: "POST",
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            email: info.email,
-            password: info.password
-          })
+    handleAuthFetchSignUp = (info) => {
+        fetch("http://localhost:3000/api/v1/users", {method: "POST", headers: {'Content-Type': 'application/json'}, 
+        body: JSON.stringify({email: info.email, password: info.password, name: info.name})})
+        .then(resp => resp.json()).then(data => {
+            console.log(data)
+            // this.props.setUser(data.user)
+            // localStorage.setItem('jwt', data.jwt)
+            // this.props.history.goBack();
         })
-        .then(res => res.json())
-        .then(data => {
-          console.log(data)
-          if(data.error){
-              this.setState({error: data.error})
-          }else {
-            this.props.setUser(data.user)
-            localStorage.setItem('jwt', data.jwt)
-            this.props.history.goBack();
-          }
-        })
-    }
-
-    handleSubmit = e => {
-        let obj = {email: this.state.email, password: this.state.password}
-        e.preventDefault()
-        this.handleAuthFetchLogin(obj)  
-    }
-
+      }
 
     handleChange = e => {
         let {name, value} = e.target
         this.setState({[name]: value})
+    }
+
+    handleSubmit = e => {
+        let obj = {email: this.state.email, password: this.state.password, name:this.state.name}
+        e.preventDefault()
+        this.handleAuthFetchSignUp(obj)
     }
 
     render(){
@@ -52,18 +41,24 @@ class Login extends Component {
                     </div>
                     <div className="login">
                         <div className="heading-container">
-                            <h1>WELCOME BACK</h1>   
+                            <h1>WELCOME TO AMAZEN</h1>   
                         </div>
                         <div className="form-container">
-                        <div><p>Sign in to continue</p></div>
-                            <div><p>Not a member yet? <a href="/signup">Sign Up</a></p></div>
+                            <div className="continue-login">
+                                <p>Sign Up to continue</p>
+                                <p>Already a member? <a href="/login">Login</a></p>
+                            </div>
                             <form onSubmit={this.handleSubmit} className="form">
                             {this.state.error ? <h5>error: {this.state.error}</h5>: null}
+                                <label htmlFor="name">Name:</label>
+                                <input type="text" name="name" value={this.state.name} onChange={this.handleChange}/>
                                 <label htmlFor="email">Email:</label>
                                 <input type="text" name="email" value={this.state.email} onChange={this.handleChange}/>
                                 <label htmlFor="password">Password:</label>
                                 <input type="password" name="password" value={this.state.password} onChange={this.handleChange}/>
-                                <button type="submit">Sign in</button>
+                                <label htmlFor="password">Confirm Password:</label>
+                                <input type="password" name="confirm" value={this.state.confirm} onChange={this.handleChange}/>
+                                <button type="submit">Sign Up</button>
                             </form>
                         </div>
                     </div>
@@ -73,4 +68,4 @@ class Login extends Component {
     }
 }
 
-export default withRouter(Login);
+export default withRouter(SignUp);

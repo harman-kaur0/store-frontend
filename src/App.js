@@ -6,17 +6,32 @@ import ProductList from "./Components/ProductList";
 import Navigation from "./Navigation";
 import React, { Component } from "react";
 
-export default class App extends Component {
+import './App.css';
+import {BrowserRouter as Router, Route} from 'react-router-dom'
+import Home from './Containers/Home'
+import Login from './Components/Login'
+import Navigation from './Navigation'
+import React, { Component } from 'react';
+import SignUp from './Components/SignUp';
+
+
+class App extends Component {
   state = {
     user: "",
-  };
+  }
 
-  // render components
-  handleAllProducts = () => <ProductList />;
+  handleLogout = () => {
+    localStorage.clear()
+    this.setState({user: null})
+  }
 
-  componentDidMount() {
-    if (localStorage.getItem("jwt")) {
-      fetch("http://localhost:3000/getuser", {
+  setUser = user => {
+    this.setState({user: user})
+  }
+
+  componentDidMount(){
+    if (localStorage.getItem('jwt')){
+      fetch('http://localhost:3000/api/v1/getuser', {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -29,12 +44,12 @@ export default class App extends Component {
   }
   render() {
     return (
-      <div>
+      <div> 
         <Router>
-          <Navigation />
-          <Route exact path="/" render={() => <Home />} />
-          <Route exact path="/login" render={() => <Login />} />
-          <Route path="/products" exact component={this.handleAllProducts} />
+          <Navigation user={this.state.user}  handleLogout= {this.handleLogout}/>
+          <Route exact path='/' render={() => <Home/>}/>
+          {this.state.user ? null : <><Route exact path='/login' render={() => <Login setUser={this.setUser}/>}/>
+          <Route exact path='/signup' render={() => <SignUp setUser={this.setUser}/>}/></>}
         </Router>
       </div>
     );
