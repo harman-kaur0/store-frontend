@@ -44,8 +44,10 @@ class SignUp extends Component {
                             <h1>WELCOME TO AMAZEN</h1>   
                         </div>
                         <div className="form-container">
-                        <div><p>Sign Up to continue</p></div>
-                            <div><p>Already a member? <a href="/login">Login</a></p></div>
+                            <div className="continue-login">
+                                <p>Sign Up to continue</p>
+                                <p>Already a member? <a href="/login">Login</a></p>
+                            </div>
                             <form onSubmit={this.handleSubmit} className="form">
                             {this.state.error ? <h5>error: {this.state.error}</h5>: null}
                                 <label htmlFor="name">Name:</label>
