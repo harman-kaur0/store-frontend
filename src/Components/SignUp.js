@@ -7,16 +7,24 @@ class SignUp extends Component {
         password: "",
         confirm: "",
         name: "",
-        error: ""
+        error: null
     }
 
     handleAuthFetchSignUp = (info) => {
         fetch("http://localhost:3000/api/v1/users", {method: "POST", headers: {'Content-Type': 'application/json'}, 
         body: JSON.stringify({email: info.email, password: info.password, name: info.name})})
         .then(resp => resp.json()).then(data => {
-            // this.props.setUser(data.user)
-            // localStorage.setItem('jwt', data.jwt)
-            // this.props.history.goBack();
+            if(data.error){
+                const newErrors = []
+                for (const [key, value] of Object.entries(data.error)){
+                    newErrors.push(`${key} ${value}`)
+                }
+                this.setState({error: newErrors})
+            }else {
+                this.props.setUser(data.user)
+                localStorage.setItem('jwt', data.jwt)
+                this.props.history.goBack();
+            }
         })
       }
 
@@ -48,7 +56,9 @@ class SignUp extends Component {
                                 <p>Already a member? <a href="/login">Login</a></p>
                             </div>
                             <form onSubmit={this.handleSubmit} className="form">
-                            {this.state.error ? <h5>error: {this.state.error}</h5>: null}
+                            {this.state.error ? <><h5>These errors are prohibiting you from creating an account:</h5>
+                            <ul>{this.state.error.map((e, i) => <li key={i}>{e}</li>)}</ul>
+                            </>: null}
                                 <label htmlFor="name">Name:</label>
                                 <input type="text" name="name" value={this.state.name} onChange={this.handleChange}/>
                                 <label htmlFor="email">Email:</label>

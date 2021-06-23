@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import Home from "./Containers/Home";
 import Login from "./Components/Login";
 import SignUp from "./Components/SignUp";
+import Product from "./Components/Product";
 import ProductList from "./Components/ProductList";
 import Navigation from "./Navigation";
 import React, { Component } from "react";
@@ -10,6 +11,7 @@ import React, { Component } from "react";
 class App extends Component {
   state = {
     user: "",
+    products: []
   }
 
   handleLogout = () => {
@@ -33,6 +35,12 @@ class App extends Component {
         .then((res) => res.json())
         .then((data) => this.setState({ user: data.user }));
     }
+    fetch("http://localhost:3000/api/v1/products")
+    .then( resp => resp.json())
+    .then((data) => {
+      console.log(data);
+      this.setState({ products: data });
+    });
   }
   render() {
     return (
@@ -42,7 +50,8 @@ class App extends Component {
           <Route exact path='/' render={() => <Home/>}/>
           {this.state.user ? null : <><Route exact path='/login' render={() => <Login setUser={this.setUser}/>}/>
           <Route exact path='/signup' render={() => <SignUp setUser={this.setUser}/>}/></>}
-          <Route exact path="/products" render= {() => <ProductList/>}/>
+          <Route exact path="/products" render= {() => <ProductList products={this.state.products}/>}/>
+          <Route path="/products/item" render={() => <Product />}/>
         </Router>
       </div>
     );
