@@ -20,7 +20,6 @@ class Login extends Component {
         })
         .then(res => res.json())
         .then(data => {
-          console.log(data)
           if(data.error){
               this.setState({error: data.error})
           }else {
