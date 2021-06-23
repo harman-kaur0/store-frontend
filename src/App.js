@@ -6,15 +6,6 @@ import ProductList from "./Components/ProductList";
 import Navigation from "./Navigation";
 import React, { Component } from "react";
 
-import './App.css';
-import {BrowserRouter as Router, Route} from 'react-router-dom'
-import Home from './Containers/Home'
-import Login from './Components/Login'
-import Navigation from './Navigation'
-import React, { Component } from 'react';
-import SignUp from './Components/SignUp';
-
-
 class App extends Component {
   state = {
     user: "",
