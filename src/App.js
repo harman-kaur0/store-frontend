@@ -5,16 +5,26 @@ import Home from './Containers/Home'
 import Login from './Components/Login'
 import Navigation from './Navigation'
 import React, { Component } from 'react';
+import SignUp from './Components/SignUp';
 
 
 class App extends Component {
   state = {
-    user: ""
+    user: "",
+  }
+
+  handleLogout = () => {
+    localStorage.clear()
+    this.setState({user: null})
+  }
+
+  setUser = user => {
+    this.setState({user: user})
   }
 
   componentDidMount(){
     if (localStorage.getItem('jwt')){
-      fetch('http://localhost:3000/getuser', {
+      fetch('http://localhost:3000/api/v1/getuser', {
         method: "GET",
         headers: {
           'Content-Type': 'application/json',
@@ -27,11 +37,12 @@ class App extends Component {
   }
   render(){
     return (
-      <div>
+      <div> 
         <Router>
-          <Navigation/>
+          <Navigation user={this.state.user}  handleLogout= {this.handleLogout}/>
           <Route exact path='/' render={() => <Home/>}/>
-          <Route exact path='/login' render={() => <Login/>}/>
+          {this.state.user ? null : <><Route exact path='/login' render={() => <Login setUser={this.setUser}/>}/>
+          <Route exact path='/signup' render={() => <SignUp setUser={this.setUser}/>}/></>}
         </Router>
       </div>
     )

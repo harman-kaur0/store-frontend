@@ -2,7 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {Navbar, Nav, Button, Form, FormControl, Container} from 'react-bootstrap';
 
 
-const Navigation = () => {
+const Navigation = ({user, handleLogout}) => {
     return (
         <>
             <Navbar collapseOnSelect fixed="top" expand="sm" variant="dark" className="bg-dark justify-content-between" >
@@ -18,20 +18,20 @@ const Navigation = () => {
                         <Navbar.Collapse className="justify-content-end">
                             <Nav className="mr-auto">
                                 <Nav.Link href='/'>Home</Nav.Link>
-                                <Nav.Link href='/login'>Login</Nav.Link>
+                                {user ?   <Nav.Link onClick={handleLogout} href="/">Log Out</Nav.Link>     : <Nav.Link href='/login'>Login</Nav.Link>} 
+                               
                             </Nav>
-                            <Navbar.Text>
-                                Signed in as:  
-                            </Navbar.Text>
+                            {user ? <Navbar.Text>
+                               Signed in as: {user.name}
+                            </Navbar.Text>: null}
                         </Navbar.Collapse>
                     </Container>
             </Navbar>
             <br />
             <br />
-            <Navbar variant="dark" className="navbar_margin" >
+            <Navbar variant="dark" fixed="top" className="navbar_margin" >
                 <Container>
                     <Navbar.Toggle aria-controls='responsive-navbar-nav'/>
-                    <Navbar.Text className="navbar_category">Categories:</Navbar.Text>
                     <Nav className="mr-auto">
                         <Nav.Link >Electronics</Nav.Link>
                         <Nav.Link >Home</Nav.Link>
