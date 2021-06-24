@@ -15,7 +15,7 @@ class App extends Component {
   state = {
     user: "",
     products: [],
-    comments: []
+    comments: [],
   }
 
   handleLogout = () => {
