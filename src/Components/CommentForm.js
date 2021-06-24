@@ -22,21 +22,20 @@ class CommentForm extends Component {
         }) : console.log()
     }
 
-    postComment = (comment, itemId, userId) => {
+    postComment = (comment, itemId, userId, rating) => {
         fetch("http://localhost:3000/api/v1/comments", {
           method: "POST",
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${localStorage.getItem('jwt')}`
           },
-          body: JSON.stringify({text: comment.text, title: comment.title, product_id: itemId, user_id: userId})
+          body: JSON.stringify({text: comment.text, title: comment.title, product_id: itemId, user_id: userId, rating: rating})
         })
         .then(resp => resp.json())
         .then(data => {
            this.props.setComments([...this.props.comments, data]) 
            this.props.history.replace(`/products/item/${this.itemId}`);
         })
-    
       }
 
     updateComment = (comment, id) => {
@@ -46,7 +45,7 @@ class CommentForm extends Component {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${localStorage.getItem('jwt')}`
             },
-            body: JSON.stringify({text: comment.text, title: comment.title})
+            body: JSON.stringify({text: comment.text, title: comment.title, rating: comment.rating})
         })
         .then(resp => resp.json())
         .then(data => {
@@ -57,7 +56,7 @@ class CommentForm extends Component {
     }
 
     handleSubmit = (e) => {
-        let obj={text: this.state.text, title: this.state.title}
+        let obj={text: this.state.text, title: this.state.title, rating: this.state.rating}
         let commentObj = this.props.comments.find(c => c.user_id === this.props.user.id && c.product_id === this.itemId)
         e.preventDefault();
         commentObj ? this.updateComment(obj, commentObj.id):
