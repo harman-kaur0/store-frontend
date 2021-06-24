@@ -18,18 +18,19 @@ class CommentForm extends Component {
         let commentObj = this.props.comments.find(c => c.user_id === this.props.user.id && c.product_id === this.itemId)
         commentObj ? this.setState({
             title: commentObj.title,
-            text: commentObj.text 
+            text: commentObj.text,
+            rating: commentObj.rating,
         }) : console.log()
     }
 
-    postComment = (comment, itemId, userId, rating) => {
+    postComment = (comment, itemId, userId) => {
         fetch("http://localhost:3000/api/v1/comments", {
           method: "POST",
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${localStorage.getItem('jwt')}`
           },
-          body: JSON.stringify({text: comment.text, title: comment.title, product_id: itemId, user_id: userId, rating: rating})
+          body: JSON.stringify({text: comment.text, title: comment.title, product_id: itemId, user_id: userId, rating: comment.rating})
         })
         .then(resp => resp.json())
         .then(data => {

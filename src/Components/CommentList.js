@@ -3,18 +3,18 @@ import React, { Component } from "react";
 export default class CommentList extends Component {
   handleRating(comment) {
     switch (comment) {
-      case comment === 1:
+      case 1:
         return "⭐";
-      case comment === 2:
+      case 2:
         return "⭐⭐";
-      case comment === 3:
+      case 3:
         return "⭐⭐⭐";
-      case comment === 4:
+      case 4:
         return "⭐⭐⭐⭐";
-      case comment === 5:
+      case 5:
         return "⭐⭐⭐⭐⭐";
       default:
-        return "";
+        return 0;
     }
   }
 
@@ -25,6 +25,7 @@ export default class CommentList extends Component {
           <div>
             <h1>{comment.title}</h1>
             <h6>{comment.text}</h6>
+            <h6>{comment.rating}</h6>
             <h6>{this.handleRating(comment.rating)}</h6>
           </div>
         ))}
