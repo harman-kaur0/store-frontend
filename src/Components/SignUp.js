@@ -56,7 +56,7 @@ class SignUp extends Component {
                                 <p>Already a member? <a href="/login">Login</a></p>
                             </div>
                             <form onSubmit={this.handleSubmit} className="form">
-                            {this.state.error ? <><h5>These errors are prohibiting you from creating an account:</h5>
+                            {this.state.error ? <><h5 className="errors">These errors are prohibiting you from creating an account:</h5>
                             <ul>{this.state.error.map((e, i) => <li key={i}>{e}</li>)}</ul>
                             </>: null}
                                 <label htmlFor="name">Name:</label>
