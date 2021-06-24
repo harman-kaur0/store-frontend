@@ -25,6 +25,10 @@ class App extends Component {
     this.setState({user: user})
   }
 
+  setComments = comment => {
+    this.setState({comments: comment})
+  }
+
   componentDidMount(){
     if (localStorage.getItem('jwt')){
       fetch('http://localhost:3000/api/v1/getuser', {
@@ -48,6 +52,8 @@ class App extends Component {
       this.setState({ comments: data });
     });
   }
+
+  
   render() {
     return (
       <div> 
@@ -57,9 +63,8 @@ class App extends Component {
           {this.state.user ? null : <><Route exact path='/login' render={() => <Login setUser={this.setUser}/>}/>
           <Route exact path='/signup' render={() => <SignUp setUser={this.setUser}/>}/></>}
           <Route exact path="/products" render= {() => <ProductList products={this.state.products}/>}/>
-          <Route path="/products/item" render={() => <Product products={this.state.products}/>}/>
-          <Route path="/" render={() => <Product user= {this.state.user} products={this.state.products} comments={this.state.comments} />}/>
-          <Route path="/comment" render={() => <CommentForm/>}/>
+          <Route path="/products/item" render={() => <Product products={this.state.products} user= {this.state.user} comments={this.state.comments} />}/>
+          <Route path="/comment" render={() => <CommentForm setComments={this.setComments} comments={this.state.comments} user={this.state.user}/>}/>
         </Router>
       </div>
     );
