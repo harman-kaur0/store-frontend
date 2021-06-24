@@ -1,11 +1,16 @@
-import React, { Component } from 'react'
+import React, { Component } from "react";
 
 export default class CommentList extends Component {
-    render() {
-        return (
-            <div>
-                <h1>Comments Render Here</h1>
-            </div>
-        )
-    }
+  render() {
+    return (
+      <div>
+        {this.props.comments.map((comment) => (
+          <div>
+            <h1>{comment.title}</h1>
+            <h1>{comment.text}</h1>
+          </div>
+        ))}
+      </div>
+    );
+  }
 }

@@ -15,24 +15,17 @@ class App extends Component {
   state = {
     user: "",
     products: [],
-    comments: [],
-  };
-
-  dynamicProducts = (routerProps) => (
-    <Product productId={routerProps.match.params.id} />
-  );
-  handleAllProducts = () => (
-    <ProductList products={this.state.products} />
-  );
+    comments: []
+  }
 
   handleLogout = () => {
-    localStorage.clear();
-    this.setState({ user: null });
-  };
+    localStorage.clear()
+    this.setState({user: null})
+  }
 
-  setUser = (user) => {
-    this.setState({ user: user });
-  };
+  setUser = user => {
+    this.setState({user: user})
+  }
 
   setComments = comment => {
     this.setState({comments: comment})
@@ -48,8 +41,7 @@ class App extends Component {
         },
       })
         .then((res) => res.json())
-        .then(console.log);
-      // .then((data) => this.setState({ user: data.user }));
+        .then((data) => this.setState({ user: data.user }));
     }
     fetch("http://localhost:3000/api/v1/products")
     .then( resp => resp.json())
@@ -66,7 +58,7 @@ class App extends Component {
   
   render() {
     return (
-      <div>
+      <div> 
         <Router>
           <Navigation user={this.state.user}  handleLogout= {this.handleLogout} searchProducts={this.searchProducts}/>
           <Route exact path='/' render={() => <Home/>}/>
