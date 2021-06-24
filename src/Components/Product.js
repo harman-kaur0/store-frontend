@@ -1,29 +1,37 @@
-import { Component } from "react"
-import {withRouter} from 'react-router-dom'
+import { Component } from "react";
+import { withRouter } from "react-router-dom";
+import CommentList from "./CommentList";
 
-class Product extends Component{
-    itemId = parseInt(this.props.location.pathname.split("/item/")[1])
+class Product extends Component {
+  // Miles: PRODUCT COMPONENT WILL NOT BE A STATEFUL COMPONENT
+  // (add Filter Method to find comments by user_id, then map)
 
-    // handleClick = () => {
-    //     if (this.props.user){
-    //         this.props.history.push()
-    //     }
-    // }
-    
-    render(){
-        let item = this.props.products.find(obj => obj.id === this.itemId)
-        return (
-            <div>
-                {/* <h1>{item.name}</h1>
-                <img src= {item.image}/>
-                <h4>$ {item.price}</h4>
-                <h6>Product Details: {item.description}</h6>
-                <button onClick={console.log("comment")}>Leave a Review</button> */}
-                
-            </div>
-        )
-    }
+  // itemId = parseInt(this.props.location.pathname.split("/item/")[1]);
+
+  // handleClick = () => {
+  //     if (this.props.user){
+  //         this.props.history.push()
+  //     }
+  // }
+
+  render() {
+    // console.log(this.props)
+    console.log(this.props.product)
+    return (
+      <div onClick={() => this.props.history.push(`/products/item/${this.props.product.id}`)}>
+          <h1>Testing</h1>
+          <div
+            className="products"
+            
+          >
+            <img src={this.props.product.image} alt={this.props.product.name} className="productsImg" />
+            <h6>{this.props.product.name}</h6>
+            <h4>$ {this.props.product.price}</h4>
+          </div>
+          <CommentList comments={console.log('comments')} />
+      </div>
+    );
+  }
 }
 
-
-export default withRouter(Product)
+export default withRouter(Product);
