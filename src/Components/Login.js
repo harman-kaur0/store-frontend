@@ -57,7 +57,7 @@ class Login extends Component {
                         <div><p>Sign in to continue</p></div>
                             <div><p>Not a member yet? <a href="/signup">Sign Up</a></p></div>
                             <form onSubmit={this.handleSubmit} className="form">
-                            {this.state.error ? <h5>error: {this.state.error}</h5>: null}
+                            {this.state.error ? <h5 className="errors">error: {this.state.error}</h5>: null}
                                 <label htmlFor="email">Email:</label>
                                 <input type="text" name="email" value={this.state.email} onChange={this.handleChange}/>
                                 <label htmlFor="password">Password:</label>

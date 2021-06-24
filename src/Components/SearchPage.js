@@ -1,20 +1,29 @@
 import { useEffect, useState } from "react";
-import { useLocation } from 'react-router-dom'
+import { useLocation, useHistory } from 'react-router-dom'
 
 const SearchPage = ({products}) => {
     const [searchResults, setSearchResults] = useState([])
-    let query = useLocation().search.slice(1).toLocaleLowerCase()
+    const history = useHistory();
+    let query = useLocation().search.slice(1).toLowerCase().replaceAll("%", " " )
 
     useEffect(() => {
         const filteredProducts = products.filter(p => p.name.toLowerCase().includes(query) || p.category.name.includes(query))
         setSearchResults(filteredProducts)
     }, [query])
 
-    return (
+    return searchResults ?(
         <div>
-
+            {searchResults.map(p => 
+                (
+                <div className="products" onClick= {() => history.replace(`/products/item/${p.id}`)} key={p.id}>
+                    <img src={p.image} alt={p.name} className="productsImg" />
+                    <h6>{p.name}</h6>
+                    <h4>$ {p.price}</h4>
+               </div>
+                )
+             )}
         </div>
-    )
+    ): <h1>No products found...</h1>
 }
 
 

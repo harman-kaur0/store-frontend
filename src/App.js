@@ -16,6 +16,7 @@ class App extends Component {
     user: "",
     products: [],
     comments: [],
+    categories: []
   }
 
   handleLogout = () => {
@@ -46,7 +47,9 @@ class App extends Component {
     fetch("http://localhost:3000/api/v1/products")
     .then( resp => resp.json())
     .then((data) => {
-      this.setState({ products: data, filteredProducts: data });
+      let category = data.map(item => item.category.name)
+      category = Array.from(new Set(category)).map(c => c.split(" & ").map(word => word[0].toUpperCase()+word.slice(1)).join(" & "))
+      this.setState({ products: data, categories: category});
     });
     fetch("http://localhost:3000/api/v1/comments")
     .then( resp => resp.json())
@@ -71,8 +74,8 @@ class App extends Component {
     return (
       <div> 
         <Router>
-          <Navigation user={this.state.user}  handleLogout= {this.handleLogout} searchProducts={this.searchProducts}/>
-          <Route exact path='/' render={() => <Home/>}/>
+          <Navigation user={this.state.user}  handleLogout= {this.handleLogout} searchProducts={this.searchProducts} categories={this.state.categories}/>
+          <Route exact path='/' render={() => <Home products={this.state.products}/>}/>
           {this.state.user ? null : <><Route exact path='/login' render={() => <Login setUser={this.setUser}/>}/>
           <Route exact path='/signup' render={() => <SignUp setUser={this.setUser}/>}/></>}
           <Route exact path="/products" render= {() => <ProductList products={this.state.products} handleFilterSort={this.handleFilterSort} />}/>

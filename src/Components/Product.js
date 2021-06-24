@@ -7,6 +7,7 @@ const Product = ({ products, user, comments, setComments }) => {
   const history = useHistory();
   const location = useLocation();
   const itemId = parseInt(location.pathname.split("/item/")[1]);
+  const productComments = comments.filter(c => c.product_id === itemId)
 
   const handleClick = (id) => {
     if (user) {
@@ -18,7 +19,6 @@ const Product = ({ products, user, comments, setComments }) => {
 
   useEffect(() => {
     let item = products.find((obj) => obj.id === itemId);
-    console.log(item);
     setProduct(item);
   }, [products]);
 
@@ -32,6 +32,8 @@ const Product = ({ products, user, comments, setComments }) => {
     let filterComments = comments.filter((c) => c.id !== id);
     setComments(filterComments);
   };
+
+  
 
   return product ? (
     <div>
@@ -58,7 +60,8 @@ const Product = ({ products, user, comments, setComments }) => {
           </button>
         )
       ) : null}
-      <CommentList comments={comments} />
+      <h1>Customer Reviews</h1>
+      <CommentList comments={productComments} />
     </div>
   ) : (
     <h1>This page does not exist</h1>

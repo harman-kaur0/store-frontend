@@ -20,7 +20,7 @@ export default class CommentList extends Component {
 
   render() {
     return (
-      <div>
+      <div className="products">
         {this.props.comments.map((comment) => (
           <div>
             <h1>{comment.title}</h1>

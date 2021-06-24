@@ -91,7 +91,7 @@
   height: 30px;
 }
 
-h5 {
+.errors {
   color: red;
   border: 1px solid red;
   border-radius: 2px;
@@ -192,6 +192,31 @@ h5 {
 
 .product-image {
   width: 200px;
+}
+
+.home-page {
+  border: 2px solid salmon;
+  height: calc(100vh - 100px);
+  overflow-y: scroll;
+}
+
+.card-container {
+  border: 5px solid green;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.home-cards {
+  border: 2px solid purple;
+  width: 250px;
+}
+
+.home-card {
+  border: 1px solid black;
+}
+
+.home-card img {
+  width: 150px;
 }
 
 
