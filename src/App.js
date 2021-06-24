@@ -6,8 +6,10 @@ import SignUp from "./Components/SignUp";
 import Product from "./Components/Product";
 import CommentForm from "./Components/CommentForm";
 import ProductList from "./Components/ProductList";
+import SearchPage from "./Components/SearchPage";
 import Navigation from "./Navigation";
 import React, { Component } from "react";
+import {withRouter} from 'react-router-dom'
 
 class App extends Component {
   state = {
@@ -44,7 +46,7 @@ class App extends Component {
     fetch("http://localhost:3000/api/v1/products")
     .then( resp => resp.json())
     .then((data) => {
-      this.setState({ products: data });
+      this.setState({ products: data, filteredProducts: data });
     });
     fetch("http://localhost:3000/api/v1/comments")
     .then( resp => resp.json())
@@ -58,17 +60,18 @@ class App extends Component {
     return (
       <div> 
         <Router>
-          <Navigation user={this.state.user}  handleLogout= {this.handleLogout}/>
+          <Navigation user={this.state.user}  handleLogout= {this.handleLogout} searchProducts={this.searchProducts}/>
           <Route exact path='/' render={() => <Home/>}/>
           {this.state.user ? null : <><Route exact path='/login' render={() => <Login setUser={this.setUser}/>}/>
           <Route exact path='/signup' render={() => <SignUp setUser={this.setUser}/>}/></>}
           <Route exact path="/products" render= {() => <ProductList products={this.state.products}/>}/>
-          <Route path="/products/item" render={() => <Product products={this.state.products} user= {this.state.user} comments={this.state.comments} />}/>
-          <Route path="/comment" render={() => <CommentForm setComments={this.setComments} comments={this.state.comments} user={this.state.user}/>}/>
+          <Route exact path="/products/item" render={() => <Product products={this.state.products} user= {this.state.user} comments={this.state.comments} />}/>
+          <Route exact path="/comment" render={() => <CommentForm setComments={this.setComments} comments={this.state.comments} user={this.state.user}/>}/>
+          <Route exact path="/search" render={() => <SearchPage products={this.state.products}/>}/>
         </Router>
       </div>
     );
   }
 }
 
-export default App;
+export default withRouter(App);

@@ -20,14 +20,14 @@ const Product = ({products, user, comments}) => {
         setProduct(item)
     }, [products])
 
-    deleteComment = (id) => {
-        fetch(`http://localhost:3000/api/v1/comments/${id}`, {
-            method: "DELETE",
-            headers: {
-                'Authorization': `Bearer ${localStorage.getItem('jwt')}`
-            }
-        })
-    }
+    // deleteComment = (id) => {
+    //     fetch(`http://localhost:3000/api/v1/comments/${id}`, {
+    //         method: "DELETE",
+    //         headers: {
+    //             'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+    //         }
+    //     })
+    // }
     
     return (
         product ?
