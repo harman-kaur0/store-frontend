@@ -12,7 +12,9 @@ class Product extends Component{
     
     render(){
         let item = this.props.products.find(obj => obj.id === this.itemId)
-        console.log(this.props.comments)
+        console.log(this.props.user)
+        console.log(this.props.products)
+        console.log(this.props.products)
         return (
             <div>
                 <h1>{item.name}</h1>
