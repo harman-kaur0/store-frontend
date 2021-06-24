@@ -9,7 +9,7 @@ class ProductList extends Component {
       <div>
         <h1>Product List Here!</h1>
         {this.props.products.map((p) => (
-          <div className="products" onClick= {() => this.props.history.push(`/products/item/${p.id}`)} key={p.id}>
+          <div className="products" onClick= {() => this.props.history.replace(`/products/item/${p.id}`)} key={p.id}>
             <img src={p.image} alt={p.name} className="productsImg" />
             <h6>{p.name}</h6>
             <h4>$ {p.price}</h4>

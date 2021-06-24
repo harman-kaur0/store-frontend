@@ -4,7 +4,7 @@ import {Navbar, Nav, Button, Form, FormControl, Container} from 'react-bootstrap
 import { useHistory } from 'react-router-dom';
 
 
-const Navigation = ({user, handleLogout, searchProducts}) => {
+const Navigation = ({user, handleLogout}) => {
     const [term, setTerm] = useState("")
     const history = useHistory()
 

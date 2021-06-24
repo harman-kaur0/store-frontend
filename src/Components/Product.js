@@ -1,7 +1,7 @@
 import {useEffect, useState } from "react"
 import {useHistory, useLocation} from 'react-router-dom'
 
-const Product = ({products, user, comments}) => {
+const Product = ({products, user, comments, setComments}) => {
     const [product, setProduct] = useState(productLoad)
     const history = useHistory()
     const location = useLocation()
@@ -17,17 +17,20 @@ const Product = ({products, user, comments}) => {
 
     useEffect(() => {
         let item = products.find(obj => obj.id === itemId)
+        console.log(item)
         setProduct(item)
     }, [products])
 
-    // deleteComment = (id) => {
-    //     fetch(`http://localhost:3000/api/v1/comments/${id}`, {
-    //         method: "DELETE",
-    //         headers: {
-    //             'Authorization': `Bearer ${localStorage.getItem('jwt')}`
-    //         }
-    //     })
-    // }
+    const deleteComment = (id) => {
+        fetch(`http://localhost:3000/api/v1/comments/${id}`, {
+            method: "DELETE",
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+            }
+        })
+        let filterComments = comments.filter(c => c.id !== id)
+        setComments(filterComments)      
+    }
     
     return (
         product ?
@@ -39,7 +42,10 @@ const Product = ({products, user, comments}) => {
             
             {comments ? 
             (comments.find(c => c.user_id === user.id && c.product_id === itemId) ?
-            <button onClick={() => history.push(`/comment/${product.id}`)}>Edit Review</button>:
+            <>
+                <button onClick={() => history.push(`/comment/${product.id}`)}>Edit Review</button>
+                <button onClick={() => deleteComment(product.id)}>Delete review</button>
+            </>:
             <button onClick={() => handleClick(product.id)}>Leave a Review</button>) : null
             }
         </div> 

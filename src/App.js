@@ -65,7 +65,7 @@ class App extends Component {
           {this.state.user ? null : <><Route exact path='/login' render={() => <Login setUser={this.setUser}/>}/>
           <Route exact path='/signup' render={() => <SignUp setUser={this.setUser}/>}/></>}
           <Route exact path="/products" render= {() => <ProductList products={this.state.products}/>}/>
-          <Route exact path="/products/item" render={() => <Product products={this.state.products} user= {this.state.user} comments={this.state.comments} />}/>
+          <Route path="/products/item/" render={() => <Product products={this.state.products} setComments={this.setComments} user= {this.state.user} comments={this.state.comments} />}/>
           <Route exact path="/comment" render={() => <CommentForm setComments={this.setComments} comments={this.state.comments} user={this.state.user}/>}/>
           <Route exact path="/search" render={() => <SearchPage products={this.state.products}/>}/>
         </Router>
