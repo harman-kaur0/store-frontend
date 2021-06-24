@@ -3,6 +3,9 @@ import { withRouter } from "react-router-dom";
 import CommentList from "./CommentList";
 
 class Product extends Component {
+  state = {
+    productView: false,
+  };
   // Miles: PRODUCT COMPONENT WILL NOT BE A STATEFUL COMPONENT
   // (add Filter Method to find comments by user_id, then map)
 
@@ -14,21 +17,37 @@ class Product extends Component {
   //     }
   // }
 
+  handleToggle = () => {
+    this.props.history.push(`/products/item/${this.props.product.id}`)
+    this.setState({ productView: !this.state.productView })
+  };
+
   render() {
     // console.log(this.props)
-    console.log(this.props.product)
-    return (
-      <div onClick={() => this.props.history.push(`/products/item/${this.props.product.id}`)}>
-          <h1>Testing</h1>
-          <div
-            className="products"
-            
-          >
-            <img src={this.props.product.image} alt={this.props.product.name} className="productsImg" />
-            <h6>{this.props.product.name}</h6>
-            <h4>$ {this.props.product.price}</h4>
-          </div>
-          <CommentList comments={console.log('comments')} />
+
+    // if id is from routerProps or from PropductList, render conditionally
+    console.log(this.props.product);
+    return this.state.productView ? (
+      <div>
+        <h1>This.state.productView is false</h1>
+        <CommentList comments={console.log("comments")} />
+      </div>
+    ) : (
+      <div
+        onClick={this.handleToggle
+          
+        }
+      >
+        <h1>Testing</h1>
+        <div className="products">
+          <img
+            src={this.props.product.image}
+            alt={this.props.product.name}
+            className="productsImg"
+          />
+          <h6>{this.props.product.name}</h6>
+          <h4>$ {this.props.product.price}</h4>
+        </div>
       </div>
     );
   }

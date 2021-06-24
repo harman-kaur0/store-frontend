@@ -14,23 +14,27 @@ class App extends Component {
     user: "",
     products: [],
     comments: [],
-  }
+  };
 
-  dynamicProducts = (routerProps) =>   <ProductList productId={routerProps.match.params.id} />
-  handleAllProducts = () =>  <ProductList addToCollection={this.addToCollection} />
+  dynamicProducts = (routerProps) => (
+    <Product productId={routerProps.match.params.id} />
+  );
+  handleAllProducts = () => (
+    <ProductList products={this.state.products} />
+  );
 
   handleLogout = () => {
-    localStorage.clear()
-    this.setState({user: null})
-  }
+    localStorage.clear();
+    this.setState({ user: null });
+  };
 
-  setUser = user => {
-    this.setState({user: user})
-  }
+  setUser = (user) => {
+    this.setState({ user: user });
+  };
 
-  componentDidMount(){
-    if (localStorage.getItem('jwt')){
-      fetch('http://localhost:3000/api/v1/getuser', {
+  componentDidMount() {
+    if (localStorage.getItem("jwt")) {
+      fetch("http://localhost:3000/api/v1/getuser", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -38,8 +42,8 @@ class App extends Component {
         },
       })
         .then((res) => res.json())
-        .then(console.log)
-        // .then((data) => this.setState({ user: data.user }));
+        .then(console.log);
+      // .then((data) => this.setState({ user: data.user }));
     }
     // fetch("http://localhost:3000/api/v1/products")
     // .then( resp => resp.json())
@@ -54,19 +58,31 @@ class App extends Component {
   }
   render() {
     return (
-      <div> 
+      <div>
         <Router>
-          <Navigation user={this.state.user}  handleLogout= {this.handleLogout}/>
-          <Route exact path='/' render={() => <Home/>}/>
-          {this.state.user ? null : <><Route exact path='/login' render={() => <Login setUser={this.setUser}/>}/>
-          <Route exact path='/signup' render={() => <SignUp setUser={this.setUser}/>}/></>}
+          <Navigation user={this.state.user} handleLogout={this.handleLogout} />
+          <Route exact path="/" render={() => <Home />} />
+          {this.state.user ? null : (
+            <>
+              <Route
+                exact
+                path="/login"
+                render={() => <Login setUser={this.setUser} />}
+              />
+              <Route
+                exact
+                path="/signup"
+                render={() => <SignUp setUser={this.setUser} />}
+              />
+            </>
+          )}
           {/* <Route exact path="/products" render= {() => <ProductList products={this.state.products}/>}/> */}
-          <Route path="/products" exact component={this.handleAllProducts}/>
+          <Route path="/products" exact component={this.handleAllProducts} />
           <Route path="/products/items/:id" render={this.dynamicProducts} />
           {/* <Route path="/products/item" render={() => <Product products={this.state.products}/>}/> */}
           {/* <Route path="/products/item/:id" render={() => <Product products={this.state.products} comments={this.state.comments}/>}/> */}
           {/* <Route path="/" render={() => <Product user={this.state.user} products={this.state.products} comments={this.state.comments} />}/> */}
-          <Route path="/comment" render={() => <CommentForm/>}/>
+          <Route path="/comment" render={() => <CommentForm />} />
         </Router>
       </div>
     );
