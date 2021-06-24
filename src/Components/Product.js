@@ -12,14 +12,14 @@ class Product extends Component{
     
     render(){
         let item = this.props.products.find(obj => obj.id === this.itemId)
-        console.log(this.props.comments)
         return (
             <div>
-                <h1>{item.name}</h1>
+                {/* <h1>{item.name}</h1>
                 <img src= {item.image}/>
                 <h4>$ {item.price}</h4>
                 <h6>Product Details: {item.description}</h6>
-                <button onClick={console.log("comment")}>Leave a Review</button>
+                <button onClick={console.log("comment")}>Leave a Review</button> */}
+                
             </div>
         )
     }
