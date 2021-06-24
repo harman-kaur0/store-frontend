@@ -38,14 +38,8 @@ class ProductList extends Component {
     return (
       <div>
         <h1>Product List Here!</h1>
-        <div className="ui items">
-          {this.props.productId ? this.findProduct() : allProducts}
-        </div>
-        {/* {this.props.products.map((p) => (
-          <div
-            className="products"
-            onClick={() => this.props.history.push(`/products/item/${p.id}`)}
-          >
+        {this.props.products.map((p) => (
+          <div className="products" onClick= {() => this.props.history.replace(`/products/item/${p.id}`)} key={p.id}>
             <img src={p.image} alt={p.name} className="productsImg" />
             <h6>{p.name}</h6>
             <h4>$ {p.price}</h4>

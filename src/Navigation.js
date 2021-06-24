@@ -1,8 +1,19 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
+import React,{ useState } from 'react';
 import {Navbar, Nav, Button, Form, FormControl, Container} from 'react-bootstrap';
+import { useHistory } from 'react-router-dom';
 
 
 const Navigation = ({user, handleLogout}) => {
+    const [term, setTerm] = useState("")
+    const history = useHistory()
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        const search = term.replaceAll(" ", "%")
+        history.push(`/search?${search}`)
+      }
+
     return (
         <>
             <Navbar collapseOnSelect fixed="top" expand="sm" variant="dark" className="bg-dark justify-content-between" >
@@ -10,8 +21,8 @@ const Navigation = ({user, handleLogout}) => {
                     <Navbar.Brand>Amazen</Navbar.Brand>
                         <Navbar.Toggle aria-controls='responsive-navbar-nav'/>
                         <Navbar.Collapse id= "responsive-navbar-nav" className="justify-content-end">
-                            <Form className="d-flex">
-                                    <FormControl type="text" placeholder="Search" className= "mr-2" aria-describedby="basic-addon1"/>
+                            <Form className="d-flex" onSubmit={handleSubmit}>
+                                    <FormControl onChange={e => setTerm(e.target.value)} type="text" placeholder="Search" className= "mr-2" aria-describedby="basic-addon1"/>
                                     <Button variant="outline-info">Search</Button>
                             </Form>
                         </Navbar.Collapse>

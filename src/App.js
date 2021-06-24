@@ -6,8 +6,10 @@ import SignUp from "./Components/SignUp";
 import Product from "./Components/Product";
 import CommentForm from "./Components/CommentForm";
 import ProductList from "./Components/ProductList";
+import SearchPage from "./Components/SearchPage";
 import Navigation from "./Navigation";
 import React, { Component } from "react";
+import {withRouter} from 'react-router-dom'
 
 class App extends Component {
   state = {
@@ -32,9 +34,13 @@ class App extends Component {
     this.setState({ user: user });
   };
 
-  componentDidMount() {
-    if (localStorage.getItem("jwt")) {
-      fetch("http://localhost:3000/api/v1/getuser", {
+  setComments = comment => {
+    this.setState({comments: comment})
+  }
+
+  componentDidMount(){
+    if (localStorage.getItem('jwt')){
+      fetch('http://localhost:3000/api/v1/getuser', {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -45,48 +51,35 @@ class App extends Component {
         .then(console.log);
       // .then((data) => this.setState({ user: data.user }));
     }
-    // fetch("http://localhost:3000/api/v1/products")
-    // .then( resp => resp.json())
-    // .then((data) => {
-    //   this.setState({ products: data });
-    // });
-    // fetch("http://localhost:3000/api/v1/comments")
-    // .then( resp => resp.json())
-    // .then((data) => {
-    //   this.setState({ comments: data });
-    // });
+    fetch("http://localhost:3000/api/v1/products")
+    .then( resp => resp.json())
+    .then((data) => {
+      this.setState({ products: data, filteredProducts: data });
+    });
+    fetch("http://localhost:3000/api/v1/comments")
+    .then( resp => resp.json())
+    .then((data) => {
+      this.setState({ comments: data });
+    });
   }
+
+  
   render() {
     return (
       <div>
         <Router>
-          <Navigation user={this.state.user} handleLogout={this.handleLogout} />
-          <Route exact path="/" render={() => <Home />} />
-          {this.state.user ? null : (
-            <>
-              <Route
-                exact
-                path="/login"
-                render={() => <Login setUser={this.setUser} />}
-              />
-              <Route
-                exact
-                path="/signup"
-                render={() => <SignUp setUser={this.setUser} />}
-              />
-            </>
-          )}
-          {/* <Route exact path="/products" render= {() => <ProductList products={this.state.products}/>}/> */}
-          <Route path="/products" exact component={this.handleAllProducts} />
-          <Route path="/products/items/:id" component={this.dynamicProducts} />
-          {/* <Route path="/products/item" render={() => <Product products={this.state.products}/>}/> */}
-          {/* <Route path="/products/item/:id" render={() => <Product products={this.state.products} comments={this.state.comments}/>}/> */}
-          {/* <Route path="/" render={() => <Product user={this.state.user} products={this.state.products} comments={this.state.comments} />}/> */}
-          <Route path="/comment" render={() => <CommentForm />} />
+          <Navigation user={this.state.user}  handleLogout= {this.handleLogout} searchProducts={this.searchProducts}/>
+          <Route exact path='/' render={() => <Home/>}/>
+          {this.state.user ? null : <><Route exact path='/login' render={() => <Login setUser={this.setUser}/>}/>
+          <Route exact path='/signup' render={() => <SignUp setUser={this.setUser}/>}/></>}
+          <Route exact path="/products" render= {() => <ProductList products={this.state.products}/>}/>
+          <Route path="/products/item/" render={() => <Product products={this.state.products} setComments={this.setComments} user= {this.state.user} comments={this.state.comments} />}/>
+          <Route exact path="/comment" render={() => <CommentForm setComments={this.setComments} comments={this.state.comments} user={this.state.user}/>}/>
+          <Route exact path="/search" render={() => <SearchPage products={this.state.products}/>}/>
         </Router>
       </div>
     );
   }
 }
 
-export default App;
+export default withRouter(App);
