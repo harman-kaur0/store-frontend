@@ -23,7 +23,7 @@ class Product extends Component {
   };
 
   render() {
-    // console.log(this.props)
+    console.log(this.props)
 
     // if id is from routerProps or from PropductList, render conditionally
     console.log(this.props.product);

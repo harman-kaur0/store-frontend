@@ -78,7 +78,7 @@ class App extends Component {
           )}
           {/* <Route exact path="/products" render= {() => <ProductList products={this.state.products}/>}/> */}
           <Route path="/products" exact component={this.handleAllProducts} />
-          <Route path="/products/items/:id" render={this.dynamicProducts} />
+          <Route path="/products/items/:id" component={this.dynamicProducts} />
           {/* <Route path="/products/item" render={() => <Product products={this.state.products}/>}/> */}
           {/* <Route path="/products/item/:id" render={() => <Product products={this.state.products} comments={this.state.comments}/>}/> */}
           {/* <Route path="/" render={() => <Product user={this.state.user} products={this.state.products} comments={this.state.comments} />}/> */}
