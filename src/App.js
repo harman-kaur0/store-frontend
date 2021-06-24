@@ -12,16 +12,14 @@ import React, { Component } from "react";
 class App extends Component {
   state = {
     user: "",
-    products: []
+    products: [],
+    comments: [],
   }
 
   handleLogout = () => {
     localStorage.clear()
     this.setState({user: null})
   }
-
-  dynamicProducts = (routerProps) =>   <ProductList productId={routerProps.match.params.id} />
-
 
   setUser = user => {
     this.setState({user: user})
@@ -56,8 +54,7 @@ class App extends Component {
           <Route exact path='/signup' render={() => <SignUp setUser={this.setUser}/>}/></>}
           <Route exact path="/products" render= {() => <ProductList products={this.state.products}/>}/>
           <Route path="/products/item" render={() => <Product products={this.state.products}/>}/>
-          <Route path="/paintings/:id" render={this.dynamicPaintings} />
-          <Route path="/" render={() => <Product user= {this.state.user} products={this.state.products}/>}/>
+          <Route path="/" render={() => <Product user= {this.state.user} products={this.state.products} comments={this.state.comments}/>}/>
         </Router>
       </div>
     );
