@@ -17,7 +17,6 @@ const Product = ({products, user, comments, setComments}) => {
 
     useEffect(() => {
         let item = products.find(obj => obj.id === itemId)
-        console.log(item)
         setProduct(item)
     }, [products])
 
@@ -33,23 +32,24 @@ const Product = ({products, user, comments, setComments}) => {
     }
     
     return (
-        product ?
-        <div>
-            <h1>{product.name}</h1>
-            <img className="product-image" src= {product.image} alt={product.name}/>
-            <h4>$ {product.price}</h4>
-            <h6>Product Details: {product.description}</h6>
-            
-            {comments ? 
-            (comments.find(c => c.user_id === user.id && c.product_id === itemId) ?
-            <>
-                <button onClick={() => history.push(`/comment/${product.id}`)}>Edit Review</button>
-                <button onClick={() => deleteComment(product.id)}>Delete review</button>
-            </>:
-            <button onClick={() => handleClick(product.id)}>Leave a Review</button>) : null
-            }
-        </div> 
-        : <h1>This page does not exist</h1>   
+            product ?
+            <div>
+                <h1>{product.name}</h1>
+                <img className="product-image" src= {product.image} alt={product.name}/>
+                <h4>$ {product.price}</h4>
+                <h6>Product Details: {product.description}</h6>
+                
+                {comments ? 
+                (comments.find(c => c.user_id === user.id && c.product_id === itemId) ?
+                <>
+                    <button onClick={() => history.push(`/comment/${product.id}`)}>Edit Review</button>
+                    <button onClick={() => deleteComment(product.id)}>Delete review</button>
+                </>:
+                <button onClick={() => handleClick(product.id)}>Leave a Review</button>) : null
+                }
+            </div> 
+            : <h1>This page does not exist</h1>
+
     )
 }
 
