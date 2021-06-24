@@ -18,7 +18,8 @@ class CommentForm extends Component {
         let commentObj = this.props.comments.find(c => c.user_id === this.props.user.id && c.product_id === this.itemId)
         commentObj ? this.setState({
             title: commentObj.title,
-            text: commentObj.text 
+            text: commentObj.text,
+            rating: commentObj.rating,
         }) : console.log()
     }
 
@@ -29,14 +30,13 @@ class CommentForm extends Component {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${localStorage.getItem('jwt')}`
           },
-          body: JSON.stringify({text: comment.text, title: comment.title, product_id: itemId, user_id: userId})
+          body: JSON.stringify({text: comment.text, title: comment.title, product_id: itemId, user_id: userId, rating: comment.rating})
         })
         .then(resp => resp.json())
         .then(data => {
            this.props.setComments([...this.props.comments, data]) 
            this.props.history.replace(`/products/item/${this.itemId}`);
         })
-    
       }
 
     updateComment = (comment, id) => {
@@ -46,7 +46,7 @@ class CommentForm extends Component {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${localStorage.getItem('jwt')}`
             },
-            body: JSON.stringify({text: comment.text, title: comment.title})
+            body: JSON.stringify({text: comment.text, title: comment.title, rating: comment.rating})
         })
         .then(resp => resp.json())
         .then(data => {
@@ -57,7 +57,7 @@ class CommentForm extends Component {
     }
 
     handleSubmit = (e) => {
-        let obj={text: this.state.text, title: this.state.title}
+        let obj={text: this.state.text, title: this.state.title, rating: this.state.rating}
         let commentObj = this.props.comments.find(c => c.user_id === this.props.user.id && c.product_id === this.itemId)
         e.preventDefault();
         commentObj ? this.updateComment(obj, commentObj.id):

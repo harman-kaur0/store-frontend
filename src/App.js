@@ -55,6 +55,17 @@ class App extends Component {
     });
   }
 
+  // sort based on total ratings of product id
+  // filter by id for newest arrivals
+  handleFilterSort = e => {
+    let filteredProducts = []
+    if (e.target.value === 'most') {
+      filteredProducts = this.state.products.sort((a, b) => a.comments.length - b.comments.length) 
+    } if (e.target.value === 'newest') {
+      filteredProducts = this.state.products.sort((a, b) => b.id - a.id)
+    }
+    console.log('FilterSort func is firing.')
+  }
   
   render() {
     return (
@@ -64,10 +75,10 @@ class App extends Component {
           <Route exact path='/' render={() => <Home/>}/>
           {this.state.user ? null : <><Route exact path='/login' render={() => <Login setUser={this.setUser}/>}/>
           <Route exact path='/signup' render={() => <SignUp setUser={this.setUser}/>}/></>}
-          <Route exact path="/products" render= {() => <ProductList products={this.state.products}/>}/>
+          <Route exact path="/products" render= {() => <ProductList products={this.state.products} handleFilterSort={this.handleFilterSort} />}/>
           <Route path="/products/item/" render={() => <Product products={this.state.products} setComments={this.setComments} user= {this.state.user} comments={this.state.comments} />}/>
-          <Route exact path="/comment" render={() => <CommentForm setComments={this.setComments} comments={this.state.comments} user={this.state.user}/>}/>
-          <Route exact path="/search" render={() => <SearchPage products={this.state.products}/>}/>
+          <Route path="/comment" render={() => <CommentForm setComments={this.setComments} comments={this.state.comments} user={this.state.user}/>}/>
+          <Route path="/search" render={() => <SearchPage products={this.state.products}/>}/>
         </Router>
       </div>
     );
