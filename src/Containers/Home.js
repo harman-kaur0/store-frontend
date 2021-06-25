@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 const Home = ({ products }) => {
   const history = useHistory();
 
-  const recentlyAdd = products.slice(-6);
+  const recentlyAdd = products.slice(-8);
   return (
     <div className="" style={{ position: "relative" }}>
       <img
@@ -27,7 +27,7 @@ const Home = ({ products }) => {
           <h1
             style={{
               position: "absolute",
-              marginTop: "-650px",
+              marginTop: "-850px",
               fontSize: "60px",
             }}
           >
@@ -36,7 +36,7 @@ const Home = ({ products }) => {
           <h4
             style={{
               position: "absolute",
-              marginTop: "-570px",
+              marginTop: "-770px",
               fontSize: "25px",
             }}
           >
@@ -49,7 +49,7 @@ const Home = ({ products }) => {
             display: "flex",
             flexWrap: "wrap",
             position: "absolute",
-            marginTop: "-500px",
+            marginTop: "-700px",
           }}
         >
           {recentlyAdd.map((p) => (
