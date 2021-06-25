@@ -7,7 +7,8 @@ const Product = ({ products, user, comments, setComments }) => {
   const history = useHistory();
   const location = useLocation();
   const itemId = parseInt(location.pathname.split("/item/")[1]);
-  const productComments = comments.filter(c => c.product_id === itemId)
+  const productComments = comments.filter(c => c.product.id === itemId)
+  const userProductComment = productComments.find(c => c.user.id === user.id)
 
   const handleClick = (id) => {
     if (user) {
@@ -20,7 +21,7 @@ const Product = ({ products, user, comments, setComments }) => {
   useEffect(() => {
     let item = products.find((obj) => obj.id === itemId);
     setProduct(item);
-  }, [products]);
+  }, [products, itemId]);
 
   const deleteComment = (id) => {
     fetch(`http://localhost:3000/api/v1/comments/${id}`, {
@@ -33,35 +34,29 @@ const Product = ({ products, user, comments, setComments }) => {
     setComments(filterComments);
   };
 
-  
-
   return product ? (
-    <div>
-      <h1>{product.name}</h1>
-      <img className="product-image" src={product.image} alt={product.name} />
-      <h4>$ {product.price}</h4>
-      <h6>Product Details: {product.description}</h6>
+    <div className="product-page">
+      <div className="product-info">
+        <img src={product.image} alt={product.name} />
+        <div className="product-description">
+          <h1>{product.name}</h1>
+          <h2>$ {product.price}</h2>
+          <button>Add to Cart</button>
+          <h4>Product Details: {product.description}</h4>
+        </div>
+      </div>
 
-      {comments ? (
-        comments.find(
-          (c) => c.user_id === user.id && c.product_id === itemId
-        ) ? (
-          <>
-            <button onClick={() => history.push(`/comment/${product.id}`)}>
-              Edit Review
-            </button>
-            <button onClick={() => deleteComment(product.id)}>
-              Delete review
-            </button>
-          </>
-        ) : (
-          <button onClick={() => handleClick(product.id)}>
-            Leave a Review
-          </button>
-        )
-      ) : null}
-      <h1>Customer Reviews</h1>
-      <CommentList comments={productComments} />
+      <div className="review-container">      
+          <div className="review-button">
+            <button onClick={() => handleClick(product.id)}>Leave a Review</button>
+          </div>
+          <div className="reviews"> 
+            <h1>Customer Reviews</h1>
+            <CommentList productComments={productComments} deleteComment={deleteComment} userProductComment={userProductComment}/>
+          </div>
+      </div>
+
+         
     </div>
   ) : (
     <h1>This page does not exist</h1>

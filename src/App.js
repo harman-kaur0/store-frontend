@@ -78,10 +78,10 @@ class App extends Component {
           <Route exact path='/' render={() => <Home products={this.state.products}/>}/>
           {this.state.user ? null : <><Route exact path='/login' render={() => <Login setUser={this.setUser}/>}/>
           <Route exact path='/signup' render={() => <SignUp setUser={this.setUser}/>}/></>}
-          <Route exact path="/products" render= {() => <ProductList products={this.state.products} handleFilterSort={this.handleFilterSort} />}/>
+          <Route exact path="/products" render= {() => <ProductList products={this.state.products}  />}/>
           <Route path="/products/item/" render={() => <Product products={this.state.products} setComments={this.setComments} user= {this.state.user} comments={this.state.comments} />}/>
-          <Route path="/comment" render={() => <CommentForm setComments={this.setComments} comments={this.state.comments} user={this.state.user}/>}/>
-          <Route path="/search" render={() => <SearchPage products={this.state.products}/>}/>
+          <Route path="/comment" render={() => <CommentForm setComments={this.setComments} comments={this.state.comments} user={this.state.user} products={this.state.products}/>}/>
+          <Route path="/search" render={() => <SearchPage products={this.state.products} handleFilterSort={this.handleFilterSort}/>}/>
         </Router>
       </div>
     );

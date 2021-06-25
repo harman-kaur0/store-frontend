@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useLocation, useHistory } from 'react-router-dom'
 
-const SearchPage = ({products}) => {
+const SearchPage = ({products, handleFilterSort}) => {
     const [searchResults, setSearchResults] = useState([])
     const history = useHistory();
     let query = useLocation().search.slice(1).toLowerCase().replaceAll("%", " " )
@@ -13,6 +13,11 @@ const SearchPage = ({products}) => {
 
     return searchResults ?(
         <div>
+            <label for="products">Sort by:</label>
+            <select id="products" name="products" onChange={e => handleFilterSort(e)}>
+                <option value="most">Most Reviewed</option>
+                <option value="newest">Newest Arrivals</option>
+            </select>
             {searchResults.map(p => 
                 (
                 <div className="products" onClick= {() => history.replace(`/products/item/${p.id}`)} key={p.id}>

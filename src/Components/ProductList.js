@@ -6,11 +6,7 @@ class ProductList extends Component {
   render() {
     return (
       <div style={{ margin: "20rem" }}>
-        <label for="products">Sort by:</label>
-        <select id="products" name="products" onChange={e => this.props.handleFilterSort(e)}>
-          <option value="most">Most Reviewed</option>
-          <option value="newest">Newest Arrivals</option>
-        </select>
+       
         <h1>Product List Here!</h1>
         {this.props.products.map((p) => (
           <div

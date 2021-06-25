@@ -14,8 +14,10 @@ class CommentForm extends Component {
         this.setState({[e.target.name]: e.target.value})
     }
 
+   product = this.props.products.find(p => p.id === this.itemId)
+
     componentDidMount() {
-        let commentObj = this.props.comments.find(c => c.user_id === this.props.user.id && c.product_id === this.itemId)
+        let commentObj = this.props.comments.find(c => c.user.id === this.props.user.id && c.product.id === this.itemId)
         commentObj ? this.setState({
             title: commentObj.title,
             text: commentObj.text,
@@ -34,8 +36,12 @@ class CommentForm extends Component {
         })
         .then(resp => resp.json())
         .then(data => {
-           this.props.setComments([...this.props.comments, data]) 
-           this.props.history.replace(`/products/item/${this.itemId}`);
+            if(data.error) {
+                alert("Rating is Required")
+            }else{
+            this.props.setComments([...this.props.comments, data]) 
+            this.props.history.replace(`/products/item/${this.itemId}`);
+            }
         })
       }
 
@@ -58,30 +64,32 @@ class CommentForm extends Component {
 
     handleSubmit = (e) => {
         let obj={text: this.state.text, title: this.state.title, rating: this.state.rating}
-        let commentObj = this.props.comments.find(c => c.user_id === this.props.user.id && c.product_id === this.itemId)
+        let commentObj = this.props.comments.find(c => c.user.id === this.props.user.id && c.product.id === this.itemId)
         e.preventDefault();
         commentObj ? this.updateComment(obj, commentObj.id):
         this.postComment(obj, this.itemId, this.props.user.id)
     }
     render (){
+        const rating = parseInt(this.state.rating)
         return (
-            <div className="comment-form">
+            <div className="comment-form" onSubmit={this.handleSubmit}>
+               { this.product ?
+                <><img src ={this.product.image}/>
+                <h3>{this.product.name}</h3></>: null}
                 <form>
                     <div className="rating">
-                        <input id="star5" name="rating" type="radio" value="5" className="radio-btn hide" onChange={this.handleChange}/>
+                        <input id="star5" name="rating" type="radio" value="5" className="radio-btn hide" checked={rating === 5} onChange={this.handleChange}/>
                         <label htmlFor="star5" className= "star">☆</label>
-                        <input id="star4" name="rating" type="radio" value="4" className="radio-btn hide" onChange={this.handleChange}/>
+                        <input id="star4" name="rating" type="radio" value="4"  className="radio-btn hide" checked={rating === 4} onChange={this.handleChange}/>
                         <label htmlFor="star4" className= "star">☆</label>
-                        <input id="star3" name="rating" type="radio" value="3" className="radio-btn hide" onChange={this.handleChange}/>
+                        <input id="star3" name="rating" type="radio" value="3"  className="radio-btn hide" checked={rating === 3} onChange={this.handleChange}/>
                         <label htmlFor="star3" className= "star">☆</label>
-                        <input id="star2" name="rating" type="radio" value="2" className="radio-btn hide" onChange={this.handleChange}/>
+                        <input id="star2" name="rating" type="radio" value="2"  className="radio-btn hide" checked={rating === 2} onChange={this.handleChange}/>
                         <label htmlFor="star2" className= "star">☆</label>
-                        <input id="star1" name="rating" type="radio" value="1" className="radio-btn hide" onChange={this.handleChange}/>
+                        <input id="star1" name="rating" type="radio" value="1"  className="radio-btn hide" checked={rating === 1} onChange={this.handleChange}/>
                         <label htmlFor="star1" className= "star">☆</label>
                         <div className="clear"></div>
                     </div>
-                </form>
-                <form className="comment" onSubmit={this.handleSubmit}>
                     <input type="text" name="title" onChange={this.handleChange} value={this.state.title}/>
                     <textarea name="text" onChange={this.handleChange} value={this.state.text}></textarea>
                     <input type="submit"/>
