@@ -2,6 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import React,{ useState } from 'react';
 import {Navbar, Nav, Button, Form, FormControl, Container} from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
+// import { FaShoppingCart } from "react/icons/fa";
 
 
 const Navigation = ({user, handleLogout, categories}) => {
@@ -42,6 +43,7 @@ const Navigation = ({user, handleLogout, categories}) => {
                                Signed in as: {user.name}
                             </Navbar.Text>: null}
                         </Navbar.Collapse>
+                        {/* <FaShoppingCart/> */}
                 </Container>
             </Navbar>
             <br />
@@ -50,7 +52,7 @@ const Navigation = ({user, handleLogout, categories}) => {
                 <Container>
                     <Navbar.Toggle aria-controls='responsive-navbar-nav'/>
                     <Nav className="mr-auto">
-                        {categories.map(c => <Nav.Link onClick={handleClick}>{c}</Nav.Link>)} 
+                        {categories.map((c, i) => <Nav.Link key={i} onClick={handleClick}>{c}</Nav.Link>)} 
                     </Nav>
                 </Container>
             </Navbar>
