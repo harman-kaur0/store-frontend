@@ -16,6 +16,9 @@ const SearchPage = ({ products }) => {
 
   return searchResults ? (
     <div style={{ margin: "20rem" }}>
+      <div style={{ display: "flex", justifyContent: "center" }} >
+        <h1>Header</h1>
+      </div>
       <div id="ProductList" style={{ display: "flex", flexWrap: "wrap" }}>
         {searchResults.map((p) => (
           <article
