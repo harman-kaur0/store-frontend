@@ -128,7 +128,6 @@
 
 .rating > label {
   padding: 0;
-  margin-top: 200px;
   justify-content: center;
   position: relative;
   width: 1.1em;
@@ -163,11 +162,62 @@
 
 .comment-form {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+  border: 3px solid red;
+  margin-top: 80px;
+  height: calc(100vh - 110px);
+}
+
+.comment-product img{
+  width: 200px;
+}
+
+.comment-product{
+  /* border: 1px solid black; */
+  display: flex;
+  min-width: 200px;
+  width: 300px;
+  height: 300px;
+}
+
+.comments{
   border: 3px solid black;
-  height: 96vh;
+  display: flex;
+  border-radius: 5px;
+}
+
+.comment-product h3 {
+  font-size: 15px;
+  align-self: center;
+}
+
+.comment-content {
+  /* border: 1px solid black; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 200px;
+  width: 300px;
+}
+
+.comment-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.comment-text input {
+  width: 200px;
+  margin-bottom: 10px;
+}
+
+.comment-text textarea {
+  width: 200px;
+  height: 100px;
+  margin-bottom: 10px;
 }
 
 .comment {

@@ -1,13 +1,16 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React,{ useState } from 'react';
 import {Navbar, Nav, Button, Form, FormControl, Container} from 'react-bootstrap';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
+import {Link, withRouter} from "react-router-dom"
+
 // import { FaShoppingCart } from "react/icons/fa";
 
 
 const Navigation = ({user, handleLogout, categories}) => {
     const [term, setTerm] = useState("")
     const history = useHistory()
+    const location = useLocation()
 
     const handleClick = (e) => {
        const search = e.target.innerText.replaceAll(" ","%")
@@ -36,7 +39,7 @@ const Navigation = ({user, handleLogout, categories}) => {
                         <Navbar.Collapse className="justify-content-end">
                             <Nav className="mr-auto">
                                 <Nav.Link href='/'>Home</Nav.Link>
-                                {user ?   <Nav.Link onClick={handleLogout} href="/">Log Out</Nav.Link>     : <Nav.Link href='/login'>Login</Nav.Link>} 
+                                {user ?   <Nav.Link onClick={handleLogout} href="/">Log Out</Nav.Link>     : <Nav.Link><Link to={{pathname:'/login', state: {from: location.pathname}}}>Login</Link></Nav.Link>} 
                                
                             </Nav>
                             {user ? <Navbar.Text>
@@ -61,4 +64,4 @@ const Navigation = ({user, handleLogout, categories}) => {
     )
 }
 
-export default Navigation;
+export default withRouter(Navigation);

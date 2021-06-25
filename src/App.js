@@ -38,11 +38,12 @@ class App extends Component {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+          "Authorization": `Bearer ${localStorage.getItem("jwt")}`,
         },
       })
         .then((res) => res.json())
-        .then((data) => this.setState({ user: data.user }));
+        .then((data) => {console.log(data)
+          this.setState({ user: data.user })});
     }
     fetch("http://localhost:3000/api/v1/products")
     .then( resp => resp.json())

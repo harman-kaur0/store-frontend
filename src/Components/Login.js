@@ -7,6 +7,7 @@ class Login extends Component {
         error: ""
     }
 
+
     handleAuthFetchLogin = (info) => {
         fetch('http://localhost:3000/api/v1/login', {
           method: "POST",
@@ -20,12 +21,13 @@ class Login extends Component {
         })
         .then(res => res.json())
         .then(data => {
+            console.log(data)
           if(data.error){
               this.setState({error: data.error})
           }else {
             this.props.setUser(data.user)
             localStorage.setItem('jwt', data.jwt)
-            this.props.history.goBack();
+            this.props.history.push(this.props.location.state.from);
           }
         })
     }
