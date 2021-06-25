@@ -1962,7 +1962,7 @@
     "graceful-fs" "^4.2.4"
     "slash" "^3.0.0"
 
-"babel-loader@8.1.0":
+"babel-loader@^8.1.0", "babel-loader@8.1.0":
   "version" "8.1.0"
   dependencies:
     "find-cache-dir" "^2.1.0"

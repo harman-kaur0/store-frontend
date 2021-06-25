@@ -4,7 +4,7 @@ import {Navbar, Nav, Button, Form, FormControl, Container} from 'react-bootstrap
 import { useHistory, useLocation } from 'react-router-dom';
 import {Link, withRouter} from "react-router-dom"
 
-// import { FaShoppingCart } from "react/icons/fa";
+import { FaShoppingCart } from "react-icons/fa";
 
 
 const Navigation = ({user, handleLogout, categories}) => {
@@ -46,7 +46,7 @@ const Navigation = ({user, handleLogout, categories}) => {
                                Signed in as: {user.name}
                             </Navbar.Text>: null}
                         </Navbar.Collapse>
-                        {/* <FaShoppingCart/> */}
+                        <FaShoppingCart color="yellow" size="20px" />
                 </Container>
             </Navbar>
             <br />
