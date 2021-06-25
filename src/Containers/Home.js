@@ -1,8 +1,8 @@
-import { useHistory } from "react-router-dom";
+import { useHistory} from "react-router-dom";
 
 const Home = ({ products }) => {
   const history = useHistory();
-
+ 
   const recentlyAdd = products.slice(-8);
   return (
     <div className="" style={{ position: "relative" }}>
@@ -52,8 +52,9 @@ const Home = ({ products }) => {
             marginTop: "-700px",
           }}
         >
+         
           {recentlyAdd.map((p) => (
-            <article style={{ backgroundColor: "white" }}>
+            <article style={{ backgroundColor: "white" }}  onClick={() => history.replace(`/products/item/${p.id}`)}>
               <img src={p.image} alt={p.name} />
               <div>
                 <h4>{p.name.slice(0, 50)}...</h4>

@@ -1,17 +1,10 @@
 import { useEffect, useState } from "react";
 import { useLocation, useHistory } from "react-router-dom";
 
-<<<<<<< HEAD
-const SearchPage = ({products, handleFilterSort}) => {
-    const [searchResults, setSearchResults] = useState([])
-    const history = useHistory();
-    let query = useLocation().search.slice(1).toLowerCase().replaceAll("%", " " )
-=======
 const SearchPage = ({ products }) => {
   const [searchResults, setSearchResults] = useState([]);
   const history = useHistory();
   let query = useLocation().search.slice(1).toLowerCase().replaceAll("%", " ");
->>>>>>> origin/main
 
   useEffect(() => {
     const filteredProducts = products.filter(
@@ -21,27 +14,6 @@ const SearchPage = ({ products }) => {
     setSearchResults(filteredProducts);
   }, [query]);
 
-<<<<<<< HEAD
-    return searchResults ?(
-        <div>
-            <label for="products">Sort by:</label>
-            <select id="products" name="products" onChange={e => handleFilterSort(e)}>
-                <option value="most">Most Reviewed</option>
-                <option value="newest">Newest Arrivals</option>
-            </select>
-            {searchResults.map(p => 
-                (
-                <div className="products" onClick= {() => history.replace(`/products/item/${p.id}`)} key={p.id}>
-                    <img src={p.image} alt={p.name} className="productsImg" />
-                    <h6>{p.name}</h6>
-                    <h4>$ {p.price}</h4>
-               </div>
-                )
-             )}
-        </div>
-    ): <h1>No products found...</h1>
-}
-=======
   return searchResults ? (
     <div style={{ margin: "20rem" }}>
       <div style={{ display: "flex", justifyContent: "center" }} >
@@ -89,6 +61,5 @@ const SearchPage = ({ products }) => {
     <h1>No products found...</h1>
   );
 };
->>>>>>> origin/main
 
 export default SearchPage;

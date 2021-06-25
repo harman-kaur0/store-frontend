@@ -5,21 +5,6 @@ class ProductList extends Component {
   render() {
     return (
       <div style={{ margin: "20rem" }}>
-<<<<<<< HEAD
-       
-        <h1>Product List Here!</h1>
-        {this.props.products.map((p) => (
-          <div
-            className="products"
-            onClick={() => this.props.history.replace(`/products/item/${p.id}`)}
-            key={p.id}
-          >
-            <img src={p.image} alt={p.name} className="productsImg" />
-            <h6>{p.name}</h6>
-            <h4>$ {p.price}</h4>
-          </div>
-        ))}
-=======
         <label for="products">Sort by:</label>
         <select
           id="products"
@@ -68,7 +53,6 @@ class ProductList extends Component {
             </article>
           ))}
         </div>
->>>>>>> origin/main
       </div>
     );
   }

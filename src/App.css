@@ -190,15 +190,11 @@
   margin-bottom: 20px;
 }
 
-<<<<<<< HEAD
-.home-page {
-=======
 .product-image {
   width: 200px;
 }
 
 /* .home-page {
->>>>>>> origin/main
   border: 2px solid salmon;
   height: calc(100vh - 100px);
   overflow-y: scroll;
@@ -248,7 +244,6 @@ img {
   cursor: pointer;
 }
 
-<<<<<<< HEAD
 .product-page {
   margin-top: 80px;
 }
@@ -358,7 +353,8 @@ img {
 
 .fade-in {
   opacity: 1;
-=======
+}
+
 .card-wrapper {
   padding: 3rem .5rem .5rem .5rem;
   cursor: pointer;
@@ -387,5 +383,4 @@ img {
   max-width: 30em;
   margin-top: 3rem;
   color: #555;
->>>>>>> origin/main
 }
