@@ -27,6 +27,11 @@ class Login extends Component {
           }else {
             this.props.setUser(data.user)
             localStorage.setItem('jwt', data.jwt)
+            let cart = JSON.parse(localStorage.getItem('cart'))
+            if (cart.length){
+                cart.forEach(item => this.props.patchUserCart(item.product_id, item.quantity, data.user))
+                localStorage.setItem('cart', [])
+            }
             this.props.history.push(this.props.location.state.from);
           }
         })

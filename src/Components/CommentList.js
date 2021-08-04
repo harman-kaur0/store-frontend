@@ -6,6 +6,7 @@ const CommentList = ({productComments, userProductComment, deleteComment }) => {
   const [show, setShow] = useState(false)
   const history = useHistory()
 
+
   const deleteUserComment = () => {
     deleteComment(userProductComment.id)
     setShow(false)

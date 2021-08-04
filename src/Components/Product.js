@@ -2,13 +2,14 @@ import { useEffect, useState } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import CommentList from "./CommentList";
 
-const Product = ({ products, user, comments, setComments }) => {
+const Product = ({ products, user, comments, setComments, patchUserCart }) => {
+  const [quantity, setQuanity] = useState(1)
   const [product, setProduct] = useState(productLoad);
   const history = useHistory();
   const location = useLocation();
   const itemId = parseInt(location.pathname.split("/item/")[1]);
   const productComments = comments.filter(c => c.product.id === itemId)
-  const userProductComment = productComments.find(c => c.user.id === user.id)
+  const userProductComment = user ? productComments.find(c => c.user.id === user.id) : null
 
   const handleClick = (id) => {
     if (user) {
@@ -17,6 +18,33 @@ const Product = ({ products, user, comments, setComments }) => {
       alert("Please log in to leave a review");
     }
   };
+
+  const handleQuantity = e => {
+    setQuanity(e.target.value)
+  }
+
+  
+
+  const addToCart = (id, e) => {
+    let cart = JSON.parse(localStorage.getItem('cart')) || []
+    e.preventDefault()
+    let obj = {
+      product_id: id,
+      quantity: quantity,
+    }
+    let findCart = cart.find(o => o.product_id === id)
+
+    if(user) {
+      patchUserCart(id, quantity)
+    }else {
+      if (findCart) {
+        cart = cart.map(o => o.product_id === id ? {...o, quantity: quantity} : o)
+      }else {
+        cart.push(obj)
+      }
+      localStorage.setItem("cart", JSON.stringify(cart))
+    }
+  }
 
   useEffect(() => {
     let item = products.find((obj) => obj.id === itemId);
@@ -41,7 +69,10 @@ const Product = ({ products, user, comments, setComments }) => {
         <div className="product-description">
           <h1>{product.name}</h1>
           <h2>$ {product.price}</h2>
-          <button>Add to Cart</button>
+          <form style={{display: "flex", flexDirection: "column"}} onSubmit={(e) => addToCart(product.id, e)}>
+            <input type="number" min="1" style={{width: "50px", marginBottom: "5px"}} value={quantity} onChange={handleQuantity}/>
+            <button type="submit">Add to Cart</button>
+          </form>
           <h4>Product Details: {product.description}</h4>
         </div>
       </div>

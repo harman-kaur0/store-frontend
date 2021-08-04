@@ -70,6 +70,35 @@ class App extends Component {
     }
     console.log('FilterSort func is firing.')
   }
+
+  patchUserCart = (id, quantity, user = this.state.user) => {
+    let obj = {
+      product_id: id,
+      quantity: quantity
+    }
+    
+    let shoppingCart = user.cart
+    let findCart = shoppingCart.find(o => o.product_id === id)
+
+    findCart ? shoppingCart.map(o => o.product_id === id ? {...o, quantity: quantity} : o) : shoppingCart.push(obj)
+
+    const config = {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+      },
+      body: JSON.stringify({cart: shoppingCart})
+    }
+
+    fetch(`http://localhost:3000/api/v1/users/${user.id}`, config)
+    .then(resp => resp.json())
+    .then(data => {
+      console.log(data)
+      this.setUser({...this.state.user, cart: data.cart})
+    })
+  }
+
   
   render() {
     return (
@@ -77,10 +106,10 @@ class App extends Component {
         <Router>
           <Navigation user={this.state.user}  handleLogout= {this.handleLogout} searchProducts={this.searchProducts} categories={this.state.categories}/>
           <Route exact path='/' render={() => <Home products={this.state.products}/>}/>
-          {this.state.user ? null : <><Route exact path='/login' render={() => <Login setUser={this.setUser}/>}/>
+          {this.state.user ? null : <><Route exact path='/login' render={() => <Login setUser={this.setUser} patchUserCart={this.patchUserCart}/>}/>
           <Route exact path='/signup' render={() => <SignUp setUser={this.setUser}/>}/></>}
           <Route exact path="/products" render= {() => <ProductList products={this.state.products}  />}/>
-          <Route path="/products/item/" render={() => <Product products={this.state.products} setComments={this.setComments} user= {this.state.user} comments={this.state.comments} />}/>
+          <Route path="/products/item/" render={() => <Product products={this.state.products} setComments={this.setComments} user= {this.state.user} comments={this.state.comments} setUser={this.setUser} patchUserCart={this.patchUserCart}/>}/>
           <Route path="/comment" render={() => <CommentForm setComments={this.setComments} comments={this.state.comments} user={this.state.user} products={this.state.products}/>}/>
           <Route path="/search" render={() => <SearchPage products={this.state.products} handleFilterSort={this.handleFilterSort}/>}/>
         </Router>
