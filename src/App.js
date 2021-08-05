@@ -7,6 +7,7 @@ import Product from "./Components/Product";
 import CommentForm from "./Components/CommentForm";
 import ProductList from "./Components/ProductList";
 import SearchPage from "./Components/SearchPage";
+import ShoppingCart from "./Containers/ShoppingCart"
 import Navigation from "./Navigation";
 import React, { Component } from "react";
 import {withRouter} from 'react-router-dom'
@@ -42,16 +43,20 @@ class App extends Component {
         },
       })
         .then((res) => res.json())
-        .then((data) => {console.log(data)
-          this.setState({ user: data.user })});
+        .then((data) => {
+          console.log(data)
+          this.setState({ user: data.user })
+        });
     }
+
     fetch("http://localhost:3000/api/v1/products")
     .then( resp => resp.json())
     .then((data) => {
-      let category = data.map(item => item.category.name)
-      category = Array.from(new Set(category)).map(c => c.split(" & ").map(word => word[0].toUpperCase()+word.slice(1)).join(" & "))
+      let category = data.map(item => item.category.name);
+      category = Array.from(new Set(category)).map(c => c.split(" & ").map(word => word[0].toUpperCase()+word.slice(1)).join(" & "));
       this.setState({ products: data, categories: category});
     });
+
     fetch("http://localhost:3000/api/v1/comments")
     .then( resp => resp.json())
     .then((data) => {
@@ -99,6 +104,7 @@ class App extends Component {
     })
   }
 
+
   
   render() {
     return (
@@ -112,6 +118,7 @@ class App extends Component {
           <Route path="/products/item/" render={() => <Product products={this.state.products} setComments={this.setComments} user= {this.state.user} comments={this.state.comments} setUser={this.setUser} patchUserCart={this.patchUserCart}/>}/>
           <Route path="/comment" render={() => <CommentForm setComments={this.setComments} comments={this.state.comments} user={this.state.user} products={this.state.products}/>}/>
           <Route path="/search" render={() => <SearchPage products={this.state.products} handleFilterSort={this.handleFilterSort}/>}/>
+          <Route path="/cart" render={() => <ShoppingCart user={this.state.user} products={this.state.products}/>}/>
         </Router>
       </div>
     );

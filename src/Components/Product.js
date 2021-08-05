@@ -26,17 +26,17 @@ const Product = ({ products, user, comments, setComments, patchUserCart }) => {
   
 
   const addToCart = (id, e) => {
-    let cart = JSON.parse(localStorage.getItem('cart')) || []
-    e.preventDefault()
+    e.preventDefault();
     let obj = {
       product_id: id,
       quantity: quantity,
     }
-    let findCart = cart.find(o => o.product_id === id)
 
     if(user) {
       patchUserCart(id, quantity)
     }else {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      let findCart = cart.find(o => o.product_id === id)
       if (findCart) {
         cart = cart.map(o => o.product_id === id ? {...o, quantity: quantity} : o)
       }else {
@@ -70,6 +70,7 @@ const Product = ({ products, user, comments, setComments, patchUserCart }) => {
           <h1>{product.name}</h1>
           <h2>$ {product.price}</h2>
           <form style={{display: "flex", flexDirection: "column"}} onSubmit={(e) => addToCart(product.id, e)}>
+            <label>Quantity</label>
             <input type="number" min="1" style={{width: "50px", marginBottom: "5px"}} value={quantity} onChange={handleQuantity}/>
             <button type="submit">Add to Cart</button>
           </form>

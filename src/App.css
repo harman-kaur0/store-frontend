@@ -434,3 +434,7 @@ img {
   margin-top: 3rem;
   color: #555;
 }
+
+.cart-container {
+  border: 1px solid purple;
+}

@@ -1,6 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React,{ useState } from 'react';
-import {Navbar, Nav, Button, Form, FormControl, Container} from 'react-bootstrap';
 import { useHistory, useLocation } from 'react-router-dom';
 import {Link, withRouter} from "react-router-dom"
 
@@ -26,40 +25,28 @@ const Navigation = ({user, handleLogout, categories}) => {
 
     return (
         <>
-            <Navbar collapseOnSelect fixed="top" expand="sm" variant="dark" className="bg-dark justify-content-between" >
-                <Container>
-                    <Navbar.Brand>Amazen</Navbar.Brand>
-                        <Navbar.Toggle aria-controls='responsive-navbar-nav'/>
-                        <Navbar.Collapse id= "responsive-navbar-nav" className="justify-content-end">
-                            <Form className="d-flex" onSubmit={handleSubmit}>
-                                    <FormControl onChange={e => setTerm(e.target.value)} value= {term} type="text" placeholder="Search" className= "mr-2" aria-describedby="basic-addon1"/>
-                                    <Button variant="outline-info">Search</Button>
-                            </Form>
-                        </Navbar.Collapse>
-                        <Navbar.Collapse className="justify-content-end">
-                            <Nav className="mr-auto">
-                                <Nav.Link href='/'>Home</Nav.Link>
-                                {user ?   <Nav.Link onClick={handleLogout} href="/">Log Out</Nav.Link>     : <Nav.Link><Link to={{pathname:'/login', state: {from: location.pathname}}}>Login</Link></Nav.Link>} 
-                               
-                            </Nav>
-                            {user ? <Navbar.Text>
-                               Signed in as: {user.name}
-                            </Navbar.Text>: null}
-                        </Navbar.Collapse>
-                        <FaShoppingCart color="yellow" size="20px" />
-                </Container>
-            </Navbar>
-            <br />
-            <br />
-            <Navbar variant="dark" fixed="top" className="navbar_margin" >
-                <Container>
-                    <Navbar.Toggle aria-controls='responsive-navbar-nav'/>
-                    <Nav className="mr-auto">
-                        {categories.map((c, i) => <Nav.Link key={i} onClick={handleClick}>{c}</Nav.Link>)} 
-                    </Nav>
-                </Container>
-            </Navbar>
-            
+            <div>
+                <div>
+                    <div>Amazen</div>
+                    <div>
+                        <form onSubmit={handleSubmit}>
+                                <input onChange={e => setTerm(e.target.value)} value= {term} type="text" placeholder="Search"/>
+                                <button variant="outline-info">Search</button>
+                        </form>
+                    </div>
+                    <div>
+                        <a href='/'>Home</a>
+                        {user ?   <a onClick={handleLogout} href="/">Log Out</a>     : <a><Link to={{pathname:'/login', state: {from: location.pathname}}}>Login</Link></a>}     
+                    </div>
+                    {user ? <div>
+                        Signed in as: {user.name}
+                    </div>: null}
+                    <a href="/cart"><FaShoppingCart color="yellow" size="20px" /></a>
+                    <div>
+                        {categories.map((c, i) => <a key={i} onClick={handleClick}>{c}</a>)} 
+                    </div>
+                </div>
+            </div>
         </>
     )
 }
