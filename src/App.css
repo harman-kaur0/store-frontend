@@ -1,6 +1,41 @@
-.navbar_margin {
-  margin-top: 60px;
-  background: grey;
+.navbar-container {
+  background: black;
+  display: flex;
+  flex-direction: column;
+}
+
+.navbar-top {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px;
+}
+
+
+.navbar-form input {
+  width: 200px;
+  margin-right: 5px;
+  border: none;
+  height: 30px;
+  border-radius: 5px;
+}
+
+.navbar-form button {
+  height: 30px;
+  color: red;
+  border: none;
+  background: black;
+}
+
+.navbar-bottom {
+  background-color: grey;
+  padding: 10px;
+  display: flex;
+  justify-content: space-evenly;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-weight: bold;
+  cursor: pointer;
 }
 
 .form-container {
@@ -437,4 +472,19 @@ img {
 
 .cart-container {
   border: 1px solid purple;
+  height: calc(100vh - 122px);
+  /* display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; */
+  overflow-y: scroll;
+  text-align: center;
+}
+
+.cart-content {
+  border: 2px solid salmon;
+  width: clamp(300px, 50%, 700px);
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 20px;
 }

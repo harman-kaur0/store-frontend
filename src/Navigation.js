@@ -2,9 +2,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import React,{ useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import {Link, withRouter} from "react-router-dom"
-
-import { FaShoppingCart } from "react-icons/fa";
-
+import {IoMdLogOut} from "react-icons/io"
+import { FaShoppingCart, FaRegUserCircle } from "react-icons/fa";
+import {BiHomeSmile} from "react-icons/bi"
+import {RiSearch2Line} from "react-icons/ri"
 
 const Navigation = ({user, handleLogout, categories}) => {
     const [term, setTerm] = useState("")
@@ -25,26 +26,28 @@ const Navigation = ({user, handleLogout, categories}) => {
 
     return (
         <>
-            <div>
-                <div>
-                    <div>Amazen</div>
-                    <div>
-                        <form onSubmit={handleSubmit}>
+            <div className="navbar-container">
+                <div className="navbar-top">
+                    <div style={{fontSize: "20px", fontWeight: "bold", color: "red"}}>Amazen</div>
+                    <div style={{display: "flex"}}>
+                        <form onSubmit={handleSubmit} style={{marginLeft: "20px", marginRight: "20px"}} className="navbar-form">
                                 <input onChange={e => setTerm(e.target.value)} value= {term} type="text" placeholder="Search"/>
-                                <button variant="outline-info">Search</button>
+                                <button type="submit"><RiSearch2Line size="15px"/></button>
                         </form>
+                        <div style={{marginRight: "20px", display: "flex", alignItems: "center"}}>
+                            <a href='/' style={{marginLeft: "20px", marginRight: "20px"}}><BiHomeSmile size="20px"/></a>
+                            {user ?   <a onClick={handleLogout} href="/"><IoMdLogOut size="20px"/></a>     : <a><Link to={{pathname:'/login', state: {from: location.pathname}}}>Login</Link></a>} 
+                        </div> 
+                        {user ? 
+                            <div style={{color: "orange", display: "flex", alignItems: "center"}}>
+                            <FaRegUserCircle size="20px"/> {user.name}
+                            </div>
+                        : null}   
                     </div>
-                    <div>
-                        <a href='/'>Home</a>
-                        {user ?   <a onClick={handleLogout} href="/">Log Out</a>     : <a><Link to={{pathname:'/login', state: {from: location.pathname}}}>Login</Link></a>}     
-                    </div>
-                    {user ? <div>
-                        Signed in as: {user.name}
-                    </div>: null}
                     <a href="/cart"><FaShoppingCart color="yellow" size="20px" /></a>
-                    <div>
-                        {categories.map((c, i) => <a key={i} onClick={handleClick}>{c}</a>)} 
-                    </div>
+                </div>
+                <div className="navbar-bottom">
+                    {categories.map((c, i) => <a key={i} onClick={handleClick}>{c}</a>)} 
                 </div>
             </div>
         </>
