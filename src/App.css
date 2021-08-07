@@ -10,6 +10,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 15px;
+  flex-wrap: wrap;
 }
 
 
@@ -489,7 +490,7 @@ img {
 }
 
 .cart-content {
-  width: clamp(200px, 50%, 700px);
+  width: clamp(200px, 70%, 700px);
   margin-right: auto;
   margin-left: auto;
   margin-top: 20px;
@@ -512,7 +513,8 @@ img {
 }
 
 .card-image {
-  width: 20%;
+  width: 30%;
+  margin-right: 20px;
 }
 
 .card-image img {

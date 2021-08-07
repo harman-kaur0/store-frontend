@@ -7,8 +7,8 @@ const ShoppingCart = ({user, products, patchUserCart, setUser, items, setItems})
 
     const multiply = cartProducts.map(c => c.quantity * c.price)
     const add = multiply.reduce((a,b) => a+b, 0)
-    const tax = add*0.03
-    const total = add + tax
+    const tax = Number.parseFloat(add*0.03).toFixed(2)
+    const total = add + (add * 0.03)
 
     useEffect(() => {
         setCartProducts(items.map(p => {
@@ -16,6 +16,30 @@ const ShoppingCart = ({user, products, patchUserCart, setUser, items, setItems})
             return product ? {...p, price: product.price} : p
         }))
     }, [items, products])
+
+    const emptyUserCart = () => {
+        const config = {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+                'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+            },
+            body: JSON.stringify({cart: []})
+        }
+
+        fetch(`http://localhost:3000/api/v1/users/${user.id}`, config)
+        .then(resp => resp.json())
+        .then(data => {
+            this.setUser({...this.state.user, cart: data.cart})
+            this.setItems(data.cart)
+    })
+    }
+
+    const newOrder = () => {
+        if (user) {
+            let arr = user.cart
+        }
+    }
 
 
     return (

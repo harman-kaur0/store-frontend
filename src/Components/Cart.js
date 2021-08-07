@@ -1,8 +1,9 @@
 import React, { useState } from "react"
 import {RiDeleteBin6Line} from "react-icons/ri"
+import { useHistory } from "react-router-dom";
 
 const Cart = ({item, products, user, patchUserCart, setUser, setItems, items}) => {
-    // const [quantity, setQuantity] = useState(item.quantity);
+    const history = useHistory();
 
     let product = products.find(p => p.id === item.product_id)
 
@@ -61,11 +62,17 @@ const Cart = ({item, products, user, patchUserCart, setUser, setItems, items}) =
             {
                 product ?
                     <div className="cards">
-                        <div className="card-image">
+                        <div className="card-image" onClick={() => history.push(`products/item/${product.id}`)}>
                             <img src={product.image}/>
                         </div>
                         <div className="text">
-                            <div>{product.name}</div>
+                            <div 
+                                onClick={() => history.push(`products/item/${product.id}`)}
+                                style={{cursor: "pointer"}}
+                            >
+                                {product.name}
+                            </div>
+                            <div style={{fontSize: "14px"}}>Price: ${product.price}</div>
                             <div className="card-form-button">
                                 <div>
                                     <label>Quantity</label>

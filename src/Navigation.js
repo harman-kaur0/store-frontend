@@ -35,11 +35,11 @@ const Navigation = ({user, handleLogout, categories, items}) => {
                                 <button type="submit"><RiSearch2Line size="15px"/></button>
                         </form>
                         <div style={{marginRight: "20px", display: "flex", alignItems: "center"}}>
-                            <a href='/' style={{marginLeft: "20px", marginRight: "20px"}}><BiHomeSmile size="20px"/></a>
-                            {user ?   <a onClick={handleLogout} href="/" style={{color: "red"}}><IoMdLogOut size="20px"/></a>     : <a><Link to={{pathname:'/login', state: {from: location.pathname}}}>Login</Link></a>} 
+                            <a href='/' style={{marginLeft: "20px", marginRight: "20px"}}><BiHomeSmile size="25px"/></a>
+                            {user ?   <a onClick={handleLogout} href="/" style={{color: "red"}}><IoMdLogOut size="25px"/></a>     : <a><Link to={{pathname:'/login', state: {from: location.pathname}}}>Login</Link></a>} 
                         </div> 
                         {user ? 
-                            <div style={{color: "orange", display: "flex", alignItems: "center"}}>
+                            <div style={{color: "orange", display: "flex", alignItems: "center", fontSize: "15px"}}>
                             <FaRegUserCircle size="20px" style={{marginRight: "10px"}}/> {user.name}
                             </div>
                         : null}   
