@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import CommentList from "./CommentList";
 
-const Product = ({ products, user, comments, setComments, patchUserCart }) => {
+const Product = ({ products, user, comments, setComments, patchUserCart, setItems }) => {
   const [quantity, setQuanity] = useState(1)
   const [product, setProduct] = useState(productLoad);
   const history = useHistory();
@@ -42,6 +42,7 @@ const Product = ({ products, user, comments, setComments, patchUserCart }) => {
         cart.push(obj)
       }
       localStorage.setItem("cart", JSON.stringify(cart))
+      setItems(cart)
     }
   }
 

@@ -17,7 +17,8 @@ class App extends Component {
     user: "",
     products: [],
     comments: [],
-    categories: []
+    categories: [],
+    items: []
   }
 
   handleLogout = () => {
@@ -32,6 +33,10 @@ class App extends Component {
 
   setComments = comment => {
     this.setState({comments: comment})
+  }
+
+  setItems = items => {
+    this.setState({items: items})
   }
 
   componentDidMount(){
@@ -63,6 +68,15 @@ class App extends Component {
     .then((data) => {
       this.setState({ comments: data });
     });
+
+    localStorage.getItem('cart').length ? this.setState({items: JSON.parse(localStorage.getItem('cart'))}) : console.log()
+    this.state.user ?  this.setState({items: this.state.user.cart }) : console.log()
+  }
+
+  componentDidUpdate(_, prevState) {
+    if (this.state.user !== prevState.user) {
+      this.setState({items: this.state.user ? this.state.user.cart : console.log()})
+    }
   }
 
   // sort based on total ratings of product id
@@ -107,6 +121,7 @@ class App extends Component {
     .then(resp => resp.json())
     .then(data => {
       this.setUser({...this.state.user, cart: data.cart})
+      this.setItems(data.cart)
     })
   }
 
@@ -114,17 +129,17 @@ class App extends Component {
   
   render() {
     return (
-      <div> 
+      <div>
         <Router>
-          <Navigation user={this.state.user}  handleLogout= {this.handleLogout} searchProducts={this.searchProducts} categories={this.state.categories}/>
+          <Navigation user={this.state.user}  handleLogout= {this.handleLogout} searchProducts={this.searchProducts} categories={this.state.categories} items={this.state.items}/>
           <Route exact path='/' render={() => <Home products={this.state.products}/>}/>
           {this.state.user ? null : <><Route exact path='/login' render={() => <Login setUser={this.setUser} patchUserCart={this.patchUserCart}/>}/>
           <Route exact path='/signup' render={() => <SignUp setUser={this.setUser}/>}/></>}
           <Route exact path="/products" render= {() => <ProductList products={this.state.products}  />}/>
-          <Route path="/products/item/" render={() => <Product products={this.state.products} setComments={this.setComments} user= {this.state.user} comments={this.state.comments} setUser={this.setUser} patchUserCart={this.patchUserCart}/>}/>
+          <Route path="/products/item/" render={() => <Product products={this.state.products} setComments={this.setComments} user= {this.state.user} comments={this.state.comments} setUser={this.setUser} patchUserCart={this.patchUserCart} setItems={this.setItems}/>}/>
           <Route path="/comment" render={() => <CommentForm setComments={this.setComments} comments={this.state.comments} user={this.state.user} products={this.state.products}/>}/>
           <Route path="/search" render={() => <SearchPage products={this.state.products} handleFilterSort={this.handleFilterSort}/>}/>
-          <Route path="/cart" render={() => <ShoppingCart user={this.state.user} products={this.state.products} patchUserCart={this.patchUserCart} setUser={this.setUser}/>}/>
+          <Route path="/cart" render={() => <ShoppingCart user={this.state.user} products={this.state.products} patchUserCart={this.patchUserCart} setUser={this.setUser} items={this.state.items} setItems={this.setItems}/>}/>
         </Router>
       </div>
     );

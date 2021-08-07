@@ -7,7 +7,7 @@ import { FaShoppingCart, FaRegUserCircle } from "react-icons/fa";
 import {BiHomeSmile} from "react-icons/bi"
 import {RiSearch2Line} from "react-icons/ri"
 
-const Navigation = ({user, handleLogout, categories}) => {
+const Navigation = ({user, handleLogout, categories, items}) => {
     const [term, setTerm] = useState("")
     const history = useHistory()
     const location = useLocation()
@@ -44,7 +44,32 @@ const Navigation = ({user, handleLogout, categories}) => {
                             </div>
                         : null}   
                     </div>
-                    <a href="/cart"><FaShoppingCart color="yellow" size="20px" /></a>
+                    <a href="/cart" style={{ position: "relative"}}>
+                        <FaShoppingCart color="yellow" size="30px" />
+                        {
+                            items.length ? 
+                            <div 
+                                style={{
+                                    position: "absolute", 
+                                    top: 0, 
+                                    right: 0, 
+                                    border: "2px solid black", 
+                                    background: "black", 
+                                    borderRadius: "50%", 
+                                    width: "15px", 
+                                    height: "15px", 
+                                    display: "flex", 
+                                    alignItems: "center", 
+                                    justifyContent: "center"
+                                }}
+                            >
+                                <p style={{color: "white", fontSize: "12px", fontWeight: "bold"}}>
+                                    {items.length}
+                                </p>
+                            </div> 
+                            : null
+                        }
+                    </a>
                 </div>
                 <div className="navbar-bottom">
                     {categories.map((c, i) => <a key={i} onClick={handleClick}>{c}</a>)} 
