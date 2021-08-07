@@ -36,11 +36,11 @@ const Navigation = ({user, handleLogout, categories}) => {
                         </form>
                         <div style={{marginRight: "20px", display: "flex", alignItems: "center"}}>
                             <a href='/' style={{marginLeft: "20px", marginRight: "20px"}}><BiHomeSmile size="20px"/></a>
-                            {user ?   <a onClick={handleLogout} href="/"><IoMdLogOut size="20px"/></a>     : <a><Link to={{pathname:'/login', state: {from: location.pathname}}}>Login</Link></a>} 
+                            {user ?   <a onClick={handleLogout} href="/" style={{color: "red"}}><IoMdLogOut size="20px"/></a>     : <a><Link to={{pathname:'/login', state: {from: location.pathname}}}>Login</Link></a>} 
                         </div> 
                         {user ? 
                             <div style={{color: "orange", display: "flex", alignItems: "center"}}>
-                            <FaRegUserCircle size="20px"/> {user.name}
+                            <FaRegUserCircle size="20px" style={{marginRight: "10px"}}/> {user.name}
                             </div>
                         : null}   
                     </div>

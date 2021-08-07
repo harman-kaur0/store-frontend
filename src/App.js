@@ -21,7 +21,8 @@ class App extends Component {
   }
 
   handleLogout = () => {
-    localStorage.clear()
+    localStorage.removeItem('jwt')
+    localStorage.setItem('cart', JSON.stringify([]))
     this.setState({user: null})
   }
 
@@ -85,7 +86,13 @@ class App extends Component {
     let shoppingCart = user.cart
     let findCart = shoppingCart.find(o => o.product_id === id)
 
-    findCart ? shoppingCart.map(o => o.product_id === id ? {...o, quantity: quantity} : o) : shoppingCart.push(obj)
+    if (findCart) {
+      shoppingCart = shoppingCart.map(o => o.product_id === id ? {...o, quantity: quantity} : o)
+    }else {
+      shoppingCart.push(obj)
+    }
+
+    console.log(shoppingCart)
 
     const config = {
       method: "PATCH",
@@ -99,7 +106,6 @@ class App extends Component {
     fetch(`http://localhost:3000/api/v1/users/${user.id}`, config)
     .then(resp => resp.json())
     .then(data => {
-      console.log(data)
       this.setUser({...this.state.user, cart: data.cart})
     })
   }
@@ -118,7 +124,7 @@ class App extends Component {
           <Route path="/products/item/" render={() => <Product products={this.state.products} setComments={this.setComments} user= {this.state.user} comments={this.state.comments} setUser={this.setUser} patchUserCart={this.patchUserCart}/>}/>
           <Route path="/comment" render={() => <CommentForm setComments={this.setComments} comments={this.state.comments} user={this.state.user} products={this.state.products}/>}/>
           <Route path="/search" render={() => <SearchPage products={this.state.products} handleFilterSort={this.handleFilterSort}/>}/>
-          <Route path="/cart" render={() => <ShoppingCart user={this.state.user} products={this.state.products}/>}/>
+          <Route path="/cart" render={() => <ShoppingCart user={this.state.user} products={this.state.products} patchUserCart={this.patchUserCart} setUser={this.setUser}/>}/>
         </Router>
       </div>
     );

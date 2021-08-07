@@ -21,24 +21,23 @@ const Product = ({ products, user, comments, setComments, patchUserCart }) => {
 
   const handleQuantity = e => {
     setQuanity(e.target.value)
-  }
-
-  
+  } 
 
   const addToCart = (id, e) => {
     e.preventDefault();
+    let intQuantity = parseInt(quantity)
     let obj = {
       product_id: id,
-      quantity: quantity,
+      quantity: intQuantity,
     }
 
     if(user) {
-      patchUserCart(id, quantity)
+      patchUserCart(id, intQuantity)
     }else {
       let cart = JSON.parse(localStorage.getItem('cart')) || [];
       let findCart = cart.find(o => o.product_id === id)
       if (findCart) {
-        cart = cart.map(o => o.product_id === id ? {...o, quantity: quantity} : o)
+        cart = cart.map(o => o.product_id === id ? {...o, quantity: intQuantity} : o)
       }else {
         cart.push(obj)
       }

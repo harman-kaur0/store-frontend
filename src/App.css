@@ -488,3 +488,32 @@ img {
   margin-left: auto;
   margin-top: 20px;
 }
+
+.text {
+  text-overflow: ellipsis;
+  display: block;
+  width: 70%;
+  overflow: hidden;
+  white-space: nowrap;
+  font-size: clamp(5px, 2vw, 15px);
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.cards {
+  display: flex;
+}
+
+.card-image {
+  width: 20%;
+}
+
+.card-form-button {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 30px;
+}
+
+.delete {
+  color: white;
+  background: red;
+}
