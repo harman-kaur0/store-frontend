@@ -40,14 +40,15 @@ const Navigation = ({user, handleLogout, categories, items}) => {
                         </div> 
                         {user ? 
                             <div style={{color: "orange", display: "flex", alignItems: "center", fontSize: "15px"}}>
-                            <FaRegUserCircle size="20px" style={{marginRight: "10px"}}/> {user.name}
+                                <FaRegUserCircle size="20px" style={{marginRight: "10px"}}/>  <a href="/orders" style={{color: "orange"}}>{user.name}</a>
                             </div>
                         : null}   
                     </div>
                     <a href="/cart" style={{ position: "relative"}}>
+                        
                         <FaShoppingCart color="yellow" size="30px" />
                         {
-                            items.length ? 
+                            items && items.length ? 
                             <div 
                                 style={{
                                     position: "absolute", 
