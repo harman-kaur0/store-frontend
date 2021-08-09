@@ -63,7 +63,7 @@ const Product = ({ products, user, comments, setComments, patchUserCart, setItem
   };
 
   return product ? (
-    <div className="product-page">
+    <div className="product-page" style={{background: "white"}}>
       <div className="product-info">
         <img src={product.image} alt={product.name} />
         <div className="product-description">
@@ -72,7 +72,7 @@ const Product = ({ products, user, comments, setComments, patchUserCart, setItem
           <form style={{display: "flex", flexDirection: "column"}} onSubmit={(e) => addToCart(product.id, e)}>
             <label>Quantity</label>
             <input type="number" min="1" style={{width: "50px", marginBottom: "5px"}} value={quantity} onChange={handleQuantity}/>
-            <button type="submit">Add to Cart</button>
+            <button type="submit" className="add-to-cart-button">Add to Cart</button>
           </form>
           <h4>Product Details: {product.description}</h4>
         </div>

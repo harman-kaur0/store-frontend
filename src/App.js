@@ -174,7 +174,7 @@ class App extends Component {
                                               orders={this.state.orders}
                                               setOrders={this.setOrders}
                                             />}/>
-          <Route path="/orders" render={() => <UserOrders orders={this.state.orders} user={this.state.user} products={this.state.products} patchUserCart={this.patchUserCart}/>}/>
+          <Route path="/orders" render={() => <UserOrders orders={this.state.orders} user={this.state.user} products={this.state.products} patchUserCart={this.patchUserCart} comments={this.state.comments}/>}/>
         </Router>
       </div>
     );

@@ -15,15 +15,13 @@ const SearchPage = ({ products }) => {
   }, [query]);
 
   return searchResults ? (
-    <div style={{ margin: "20rem" }}>
-      <div style={{ display: "flex", justifyContent: "center" }} >
-        {/* <h1>Header</h1> */}
-      </div>
+    <div className="search-page-container">
       <div id="ProductList" style={{ display: "flex", flexWrap: "wrap" }}>
         {searchResults.map((p) => (
           <article
             onClick={() => history.replace(`/products/item/${p.id}`)}
             key={p.id}
+            style={{background: "white"}}
           >
             <img src={p.image} alt={p.name} />
             <div className="card-wrapper">
@@ -34,6 +32,9 @@ const SearchPage = ({ products }) => {
                       fontSize: ".3rem !important",
                       marginTop: "0",
                       marginBottom: "0",
+                      overflow: "hidden", 
+                      whiteSpace: "nowrap",
+                      width: "100%",
                     }}
                   >
                     {p.name}

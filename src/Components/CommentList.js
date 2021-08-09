@@ -31,10 +31,10 @@ const CommentList = ({productComments, userProductComment, deleteComment }) => {
 
   return (
     <div className="comments-container">
-      {productComments.map((comment) => (  
+      {productComments.length ? productComments.map((comment) => (  
         <div className="comment-section" key={comment.id}>
             {comment === userProductComment ?
-          <div className="edit-buttons">
+            <div className="edit-buttons">
               <button onClick={() => history.push(`/comment/${comment.product.id}`)}>
                 Edit
               </button>
@@ -51,7 +51,7 @@ const CommentList = ({productComments, userProductComment, deleteComment }) => {
               <h6>{comment.text}</h6>
             </div>
         </div>
-      ))}
+      )) : <h4>no reviews available</h4>}
       <Modal show={show} onHide={() => setShow(false)} animation={false} keyboard={false} backdrop="static">
         <Modal.Header closeButton>
           <Modal.Title>Are you sure you want to delete your comment?</Modal.Title>
