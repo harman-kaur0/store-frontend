@@ -660,6 +660,9 @@ img {
 .add-to-cart-button {
   background-color: turquoise;
   width: 30px;
+  border-radius: 10px;
+  border-color: turquoise;
 }
+
 
 

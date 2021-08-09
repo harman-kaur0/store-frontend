@@ -74,13 +74,13 @@ const Product = ({ products, user, comments, setComments, patchUserCart, setItem
             <input type="number" min="1" style={{width: "50px", marginBottom: "5px"}} value={quantity} onChange={handleQuantity}/>
             <button type="submit" className="add-to-cart-button">Add to Cart</button>
           </form>
-          <h4>Product Details: {product.description}</h4>
+          <h4><b>Product Details:</b> {product.description}</h4>
         </div>
       </div>
 
       <div className="review-container">      
           <div className="review-button">
-            <button onClick={() => handleClick(product.id)}>Leave a Review</button>
+            <button onClick={() => handleClick(product.id)} className="edit-button">Leave a Review</button>
           </div>
           <div className="reviews"> 
             <h1>Customer Reviews</h1>
