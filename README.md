@@ -1,4 +1,4 @@
-# Amazen
+# Amazen | <a href="https://www.loom.com/share/a04c1752b85c4e8f9fff67a17e46a273?sharedAppSource=personal_library">Demo</a>
 <div align="center">An e-commerce website where users can purchase items based on different categories and leave reviews.</div>
 
 ## Technologies
